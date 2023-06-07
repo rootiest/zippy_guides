@@ -93,4 +93,4 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 
 Rootiest#5668 on Discord
 
-![snek](../zippy_guides/resources/github-snake-dark.svg)
+![snek](../resources/github-snake-dark.svg)
