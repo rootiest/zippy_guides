@@ -40,9 +40,10 @@ jobs:
           outputs: |
             resources/github-snake.svg
             resources/github-snake-dark.svg?palette=github-dark
+            resources/snake.gif?color_snake=purple&color_dots=#ebedf0,#9be9a8,#40c463,#30a14e,#216e39
             resources/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
-            resources/github-snake.gif
-            resources/github-snake-dark.gif?palette=github-dark
+            resources/git-snake.gif
+            resources/git-snake-dark.gif?palette=github-dark
       - name: Commit files
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
