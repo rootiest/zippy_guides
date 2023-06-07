@@ -1,0 +1,50 @@
+name: Make a Snake
+
+on:
+  # run automatically every 24 hours
+  schedule:
+    - cron: "0 */24 * * *" 
+  
+  # allows to manually run the job at any time
+  workflow_dispatch:
+  
+  # run on every push on the master branch
+  push:
+    branches:
+    - main
+jobs:
+  snake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: make-snake
+        uses: Platane/snk@v2
+        with:
+          # github user name to read the contribution graph from (**required**)
+          # using action context var `github.repository_owner` or specified user
+          github_user_name: ${{ github.repository_owner }}
+
+          # list of files to generate.
+          # one file per line. Each output can be customized with options as query string.
+          #
+          #  supported options:
+          #  - palette:     A preset of color, one of [github, github-dark, github-light]
+          #  - color_snake: Color of the snake
+          #  - color_dots:  Coma separated list of dots color.
+          #                 The first one is 0 contribution, then it goes from the low contribution to the highest.
+          #                 Exactly 5 colors are expected.
+          outputs: |
+            dist/resources/github-snake.svg
+            dist/resources/github-snake-dark.svg?palette=github-dark
+            dist/resources/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+      
+      #FIXME - this is not working and breaks whole repo
+      
+      # push the content of <build_dir> to a branch
+      # the content will be available at https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file> , or as github page
+      #- name: push github-contribution-grid-snake.svg to the main branch
+      #  uses: crazy-max/ghaction-github-pages@v3.1.0
+      #  with:
+      #    target_branch: main
+      #    build_dir: dist
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
