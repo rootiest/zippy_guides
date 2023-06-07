@@ -17,9 +17,11 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# Useful Links
+
 ![header](../resources/links_header.png)
 
-# Useful Links
+This is a collection of links to useful resources for Klipper and 3D printing in general. If you have a link you would like to see included here, please open an issue or submit a pull request.
 
 ## The Main Parts
 
@@ -82,6 +84,10 @@ This is an incredibly useful tool! If you didn't just flash [MainsailOS](https:/
 ### [AndrewEllis93 Print Tuning Guide](https://github.com/AndrewEllis93/Print-Tuning-Guide)
 
 The absolute best tuning/calibration guide for Klipper printers.
+
+### [KAMP](https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging)
+
+Klipper Adaptive Mesh and Purge. A project that allows you to mesh only the print area instead of the whole bed. It also allows you to purge the nozzle before printing in a place near the print area. This is a great way to save time, reduce wear on your bed, and reduce the amount of filament ooze that could negatively impact your print.
 
 ### [moonraker-timelapse](https://github.com/mainsail-crew/moonraker-timelapse)
 

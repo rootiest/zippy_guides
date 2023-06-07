@@ -17,11 +17,13 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# Creating Your First Macros
+
 ![header](../resources/code_header.png)
 
-# The Macros
+This guide will walk you through creating your first macros for your `START_PRINT` and `END_PRINT` gcode commands. This will allow you to use Klipper to manage your start and end procedures rather than manually adding them to your slicer.
 
-- [The Macros](#the-macros)
+- [Creating Your First Macros](#creating-your-first-macros)
   - [Basic START_PRINT Macro](#basic-start_print-macro)
   - [END_PRINT Macro](#end_print-macro)
 - [Slicer Settings](#slicer-settings)
@@ -41,7 +43,7 @@
   - [Passing Other Parameters](#passing-other-parameters)
   - [Additional Notes](#additional-notes)
 
-These are example macros you can use with your slicer to let Klipper manage the start and end procedures.
+The following are basic example macros you can use with your slicer to let Klipper manage the start and end procedures.
 
 You can just paste these macros into your `printer.cfg` file.
 

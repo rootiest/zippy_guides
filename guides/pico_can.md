@@ -17,9 +17,11 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# CANbus your Pico
+
 ![header](../resources/pico_can_header.png)
 
-# CANbus your Pico
+This guide describes how to use an SKR-Pico (or any Pico board) as both a CANbus bridge _and_ a Klipper mcu.
 
 - [CANbus your Pico](#canbus-your-pico)
   - [Why use CANbus?](#why-use-canbus)
@@ -33,8 +35,6 @@
   - [Connect additional CAN boards.](#connect-additional-can-boards)
   - [Extras](#extras)
   - [Conclusions](#conclusions)
-
-This guide describes how to use an SKR-Pico (or any Pico board) as both a CANbus bridge _and_ a Klipper mcu.
 
 ## Why use CANbus?
 

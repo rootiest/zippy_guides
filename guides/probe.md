@@ -21,10 +21,9 @@
 
 # Probe Offsets
 
-## Contents
+This guide will help you calibrate your probe offsets for X,Y,and Z axes.
 
 - [Probe Offsets](#probe-offsets)
-  - [Contents](#contents)
   - [References](#references)
   - [Sample Config](#sample-config)
     - [(Ender 3/etc) Creality 4.2.2 or 4.2.7:](#ender-3etc-creality-422-or-427)

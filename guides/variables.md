@@ -17,9 +17,15 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# Advanced Macro Techniques
+
 ![header](../resources/code_header.png)
 
-# Advanced Macro Techniques
+This guide will outline some of the more advanced macro and macro-related features you can use in Klipper.
+
+This is helpful information if you want to start writing your own macros, or just want a better understanding of existing macros you borrowed from elsewhere.
+
+We are still going to stay within the realm of "basics" but the techniques explained here should be sufficient for most macro ideas.
 
 - [Advanced Macro Techniques](#advanced-macro-techniques)
   - [Notation](#notation)
@@ -40,12 +46,6 @@
     - [The `[include]` function.](#the-include-function)
     - [NOTES](#notes)
   - [Useful Links](#useful-links)
-
-This guide will outline some of the more advanced macro and macro-related features you can use in Klipper.
-
-This is helpful information if you want to start writing your own macros, or just want a better understanding of existing macros you borrowed from elsewhere.
-
-We are still going to stay within the realm of "basics" but the techniques explained here should be sufficient for most macro ideas.
 
 ## Notation
 
