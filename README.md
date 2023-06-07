@@ -93,8 +93,4 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 
 Rootiest#5668 on Discord
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../resources/github-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="../resources/github-snake.svg" />
-  <img alt="github-snake" src="../resources/github-snake.svg" />
-</picture>
+![snek](resources/github-snake-dark.svg)

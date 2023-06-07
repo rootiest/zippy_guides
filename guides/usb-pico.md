@@ -17,11 +17,14 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# Flashing a Pico for USB
+
+This guide will walk you through compiling and flashing Klipper firmware on a USB Pico board. This process will work for any RP2040-based boards.
+
+However, some steps such as putting the board into flashing mode may differ slightly between models.
+
 ![header](../resources/pico_usb_header.png)
 
-# Contents
-
-- [Contents](#contents)
 - [Flashing a Pico for USB](#flashing-a-pico-for-usb)
   - [Compiling the firmware](#compiling-the-firmware)
   - [Flashing the firmware](#flashing-the-firmware)
@@ -41,12 +44,6 @@
       - [Control Static LED](#control-static-led)
     - [Organizing your config](#organizing-your-config)
     - [Useful Links](#useful-links)
-
-# Flashing a Pico for USB
-
-This guide will walk you through compiling and flashing Klipper firmware on a USB Pico board. This process will work for any RP2040-based boards.
-
-However, some steps such as putting the board into flashing mode may differ slightly between models.
 
 ## Compiling the firmware
 

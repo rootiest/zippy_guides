@@ -17,9 +17,11 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# CANbus your Pico
+
 ![header](../resources/pico_can_header.png)
 
-# CANbus your Pico
+This guide describes how to use an SKR-Pico (or any Pico board) as both a CANbus bridge _and_ a Klipper mcu.
 
 - [CANbus your Pico](#canbus-your-pico)
   - [Why use CANbus?](#why-use-canbus)
@@ -29,12 +31,10 @@
   - [How to do it](#how-to-do-it)
   - [Alternative Pins](#alternative-pins)
   - [Flashing the CANbridge firmware](#flashing-the-canbridge-firmware)
-  - [Congrats!](#congrats)
-  - [Connect additional CAN boards.](#connect-additional-can-boards)
+  - [Congrats on your first CANbus device](#congrats-on-your-first-canbus-device)
+  - [Connect additional CAN boards](#connect-additional-can-boards)
   - [Extras](#extras)
   - [Conclusions](#conclusions)
-
-This guide describes how to use an SKR-Pico (or any Pico board) as both a CANbus bridge _and_ a Klipper mcu.
 
 ## Why use CANbus?
 
@@ -127,7 +127,7 @@ The pins on the connector are: (from left to right)
 4. GPIO1
 5. GPIO0
 
-We only need the one 5V pin obviously, but that's ok.
+We only need the one 5V pin obviously, but that's OK.
 
 Plug the JST connector onto the board, and the other end of the cable is a Dupont connector.
 
@@ -265,9 +265,9 @@ Then run:
 
     ~/klippy-env/bin/python ~/klipper/scripts/canbus_query.py can0
 
-This command will list all the detected CAN devices on that CAN network. You should see the id for the SKR-Pico.
+This command will list all the detected CAN devices on that CAN network. You should see the ID for the SKR-Pico.
 
-Write down/copy that id, we will need it in our `printer.cfg` file.
+Write down/copy that ID, we will need it in our `printer.cfg` file.
 
 In that file, you will need to change:
 
@@ -279,7 +279,7 @@ to:
     [mcu]
     canbus_uuid: 41674b3a9356
 
-NOTE: Both your id's will be different than those shown above, they are unique to your board. I just used mine as an example.
+NOTE: Both your IDs will be different than those shown above, they are unique to your board. I just used mine as an example.
 
 So we are telling Klipper to connect to the SKR-Pico via CANbus using that uuid we found earlier instead of using USB and a usb-id.
 
@@ -305,7 +305,7 @@ Press `Ctrl+X` to exit the editor, followed by `Y` and `Enter` to save changes. 
 
 After making this change I had no issues starting the printer no matter how it was shut down.
 
-## Congrats!
+## Congrats on your first CANbus device
 
 You now have a CANbus network and your first CANbus device!
 
@@ -313,7 +313,7 @@ You could stop here and everything will work just fine.
 
 But you probably did this because you want to:
 
-## Connect additional CAN boards.
+## Connect additional CAN boards
 
 We've now installed the necessary hardware and flashed the firmware so we have a working CANbus network.
 
@@ -340,14 +340,14 @@ Run this command again:
 
 You should see two uuid's listed.
 
-The SKR-Pico's id which we already configured, and an additional one. This additional uuid belongs to your addon board.
+The SKR-Pico's ID which we already configured, and an additional one. This additional uuid belongs to your addon board.
 
 You can configure it the same as we did the main printer board. For my EBB it looks like this:
 
     [mcu EBBCan]
     canbus_uuid: e8d3e3388393
 
-Update your config with that canbus id and you should be good to go.
+Update your config with that canbus ID and you should be good to go.
 
 If you have not set up the entire toolboard config yet you can juse just that `[mcu]` section to test, with no other components.
 
@@ -446,7 +446,7 @@ I highly recommend the SKR-Pico as it's an inexpensive and feature-rich board th
 
 If you were thinking on purchasing an SKR Mini E3 board and also a CANbus toolhead, I encourage you to consider an SKR-Pico instead as it will be a better fit for a CANbus printer.
 
-I also want to point out that if you don't want an SKR-Pico, that's totally ok as well!
+I also want to point out that if you don't want an SKR-Pico, that's totallyOKas well!
 
 The same procedure can be performed with a basic Raspberry Pi Pico board. The steps are more or less identical.
 

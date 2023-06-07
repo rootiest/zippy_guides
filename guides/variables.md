@@ -17,9 +17,15 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# Advanced Macro Techniques
+
 ![header](../resources/code_header.png)
 
-# Advanced Macro Techniques
+This guide will outline some of the more advanced macro and macro-related features you can use in Klipper.
+
+This is helpful information if you want to start writing your own macros, or just want a better understanding of existing macros you borrowed from elsewhere.
+
+We are still going to stay within the realm of "basics" but the techniques explained here should be sufficient for most macro ideas.
 
 - [Advanced Macro Techniques](#advanced-macro-techniques)
   - [Notation](#notation)
@@ -37,15 +43,9 @@
   - [The Printer Object](#the-printer-object)
   - [Delayed Gcode Macros](#delayed-gcode-macros)
   - [Organizing your config](#organizing-your-config)
-    - [The `[include]` function.](#the-include-function)
+    - [The `[include]` function](#the-include-function)
     - [NOTES](#notes)
   - [Useful Links](#useful-links)
-
-This guide will outline some of the more advanced macro and macro-related features you can use in Klipper.
-
-This is helpful information if you want to start writing your own macros, or just want a better understanding of existing macros you borrowed from elsewhere.
-
-We are still going to stay within the realm of "basics" but the techniques explained here should be sufficient for most macro ideas.
 
 ## Notation
 
@@ -61,7 +61,7 @@ Alright let's look at some examples.
 
 I'm going to reference the macros in [my other guide](macros.md) for this as they are simple and probably familiar to more people.
 
-Ok, so the first line of the `START_PRINT` macro:
+OK, so the first line of the `START_PRINT` macro:
 
     {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
 
@@ -71,7 +71,7 @@ Let's look at the other type:
 
     M140 S{BED_TEMP}
 
-Ok so in this case, we have a normal gcode command, but we also are using those squiggly brackets again, this time without the percent symbols.
+OK so in this case, we have a normal gcode command, but we also are using those squiggly brackets again, this time without the percent symbols.
 
 What is the difference? Well this time, we are not comparing or testing any values, we just have `BED_TEMP` in there.
 
@@ -273,7 +273,7 @@ Let's look at an example:
         {% set my_test = params.SAMPLES|default(0)|int %}
         SET_GCODE_VARIABLE MACRO=TEST_MACRO VARIABLE=test VALUE={my_test}
 
-Ok, so what are we doing here?
+OK, so what are we doing here?
 
 This first part:
 
@@ -346,7 +346,7 @@ This is a simple macro that reads the gcode variable we created/set previously a
         {% set my_variable = printer["gcode_macro TEST_MACRO"].test %}
         M117 {my_variable}
 
-Ok so most of this is pretty self-explanatory.
+OK so most of this is pretty self-explanatory.
 
 It's just a basic macro, and the `M117` command should be familiar here.
 
@@ -415,7 +415,7 @@ So try to only use persistent variables when you actually need them to persist.
 
 It may even be pertinent to use a local variable while the value is fluid and only set the persistent variable when you have a final value to assign before restart.
 
-Ok, so how do we use them?
+OK, so how do we use them?
 
 Let's look at an example:
 
@@ -453,7 +453,7 @@ Let's look at a macro:
         {% set my_variable = svv.test %}
         M117 {my_variable}
 
-Ok so let's break this down:
+OK so let's break this down:
 
 First we have this line:
 
@@ -550,7 +550,7 @@ We can better organize our configuration by splitting it up into multiple files.
 
 To do so we use:
 
-### The `[include]` function.
+### The `[include]` function
 
 [Config Reference](https://www.klipper3d.org/Config_Reference.html#include)
 

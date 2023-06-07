@@ -17,9 +17,11 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# Bed Mesh Boundaries
+
 ![header](../resources/mesh_header.png)
 
-# Bed Mesh Boundaries
+This guide outlines how to configure the boundaries for your bed meshes. This will help you prevent out-of-range errors and other issues like probing off the edge of the bed during meshes.
 
 - [Bed Mesh Boundaries](#bed-mesh-boundaries)
   - [Prerequisites](#prerequisites)
@@ -30,8 +32,6 @@
   - [Probe Limits Macro](#probe-limits-macro)
   - [Leveling Assistance](#leveling-assistance)
   - [References](#references)
-
-This guide outlines how to configure the boundaries for your bed meshes. This will help you prevent out-of-range errors and other issues like probing off the edge of the bed during meshes.
 
 ## Prerequisites
 
