@@ -273,7 +273,7 @@ Let's look at an example:
         {% set my_test = params.SAMPLES|default(0)|int %}
         SET_GCODE_VARIABLE MACRO=TEST_MACRO VARIABLE=test VALUE={my_test}
 
-OK, so what are we doing here?
+Ok, so what are we doing here?
 
 This first part:
 
@@ -415,7 +415,7 @@ So try to only use persistent variables when you actually need them to persist.
 
 It may even be pertinent to use a local variable while the value is fluid and only set the persistent variable when you have a final value to assign before restart.
 
-OK, so how do we use them?
+Ok, so how do we use them?
 
 Let's look at an example:
 

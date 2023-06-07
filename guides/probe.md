@@ -167,7 +167,7 @@ The `+` or `-` are necessary in the `TESTZ` commands! If you do `TESTZ Z=1` it w
 
 Typically this is combined with "the paper test" where you use a sheet of paper (a standard printer paper is about 0.1mm thick) When you feel resistance from the nozzle pressing against the paper, that means you are about 0.1mm away from the bed. This way you don't have to actually contact the bed with the nozzle to do this calibration. (We need the exact 0 height, but obviously we never print that close to the bed or no filament would come out)
 
-> NOTE: The goal here is to get the nozzle to be literally resting on the bed at `Z=0`. Despite some confusion on this topic, `0` means directly touching the bed. That's ok because we **_never_** actually print at `Z=0`. We print the first layer at `Z=0+{first_layer_height}`.
+> NOTE: The goal here is to get the nozzle to be literally resting on the bed at `Z=0`. Despite some confusion on this topic, `0` means directly touching the bed. That's OK because we **_never_** actually print at `Z=0`. We print the first layer at `Z=0+{first_layer_height}`.
 >
 > So yes, we really are aiming to calibrate it so that `Z=0` is nozzle just touching the bed, not so that the nozzle is one layer-height away from the bed. The slicer will manage the layer heights for you automatically.
 >

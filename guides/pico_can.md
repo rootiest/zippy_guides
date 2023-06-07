@@ -265,7 +265,7 @@ Then run:
 
     ~/klippy-env/bin/python ~/klipper/scripts/canbus_query.py can0
 
-This command will list all the detected CAN devices on that CAN network. You should see the id for the SKR-Pico.
+This command will list all the detected CAN devices on that CAN network. You should see the ID for the SKR-Pico.
 
 Write down/copy that id, we will need it in our `printer.cfg` file.
 
@@ -340,14 +340,14 @@ Run this command again:
 
 You should see two uuid's listed.
 
-The SKR-Pico's id which we already configured, and an additional one. This additional uuid belongs to your addon board.
+The SKR-Pico's ID which we already configured, and an additional one. This additional uuid belongs to your addon board.
 
 You can configure it the same as we did the main printer board. For my EBB it looks like this:
 
     [mcu EBBCan]
     canbus_uuid: e8d3e3388393
 
-Update your config with that canbus id and you should be good to go.
+Update your config with that canbus ID and you should be good to go.
 
 If you have not set up the entire toolboard config yet you can juse just that `[mcu]` section to test, with no other components.
 
@@ -446,7 +446,7 @@ I highly recommend the SKR-Pico as it's an inexpensive and feature-rich board th
 
 If you were thinking on purchasing an SKR Mini E3 board and also a CANbus toolhead, I encourage you to consider an SKR-Pico instead as it will be a better fit for a CANbus printer.
 
-I also want to point out that if you don't want an SKR-Pico, that's totally ok as well!
+I also want to point out that if you don't want an SKR-Pico, that's totallyOKas well!
 
 The same procedure can be performed with a basic Raspberry Pi Pico board. The steps are more or less identical.
 
