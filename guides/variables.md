@@ -43,7 +43,7 @@ We are still going to stay within the realm of "basics" but the techniques expla
   - [The Printer Object](#the-printer-object)
   - [Delayed Gcode Macros](#delayed-gcode-macros)
   - [Organizing your config](#organizing-your-config)
-    - [The `[include]` function.](#the-include-function)
+    - [The `[include]` function](#the-include-function)
     - [NOTES](#notes)
   - [Useful Links](#useful-links)
 
@@ -273,7 +273,7 @@ Let's look at an example:
         {% set my_test = params.SAMPLES|default(0)|int %}
         SET_GCODE_VARIABLE MACRO=TEST_MACRO VARIABLE=test VALUE={my_test}
 
-Ok, so what are we doing here?
+OK, so what are we doing here?
 
 This first part:
 
@@ -415,7 +415,7 @@ So try to only use persistent variables when you actually need them to persist.
 
 It may even be pertinent to use a local variable while the value is fluid and only set the persistent variable when you have a final value to assign before restart.
 
-Ok, so how do we use them?
+OK, so how do we use them?
 
 Let's look at an example:
 
@@ -550,7 +550,7 @@ We can better organize our configuration by splitting it up into multiple files.
 
 To do so we use:
 
-### The `[include]` function.
+### The `[include]` function
 
 [Config Reference](https://www.klipper3d.org/Config_Reference.html#include)
 

@@ -127,7 +127,7 @@ The pins on the connector are: (from left to right)
 4. GPIO1
 5. GPIO0
 
-We only need the one 5V pin obviously, but that's ok.
+We only need the one 5V pin obviously, but that's OK.
 
 Plug the JST connector onto the board, and the other end of the cable is a Dupont connector.
 
@@ -267,7 +267,7 @@ Then run:
 
 This command will list all the detected CAN devices on that CAN network. You should see the ID for the SKR-Pico.
 
-Write down/copy that id, we will need it in our `printer.cfg` file.
+Write down/copy that ID, we will need it in our `printer.cfg` file.
 
 In that file, you will need to change:
 
@@ -279,7 +279,7 @@ to:
     [mcu]
     canbus_uuid: 41674b3a9356
 
-NOTE: Both your id's will be different than those shown above, they are unique to your board. I just used mine as an example.
+NOTE: Both your IDs will be different than those shown above, they are unique to your board. I just used mine as an example.
 
 So we are telling Klipper to connect to the SKR-Pico via CANbus using that uuid we found earlier instead of using USB and a usb-id.
 

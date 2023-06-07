@@ -29,8 +29,8 @@ This guide will help you calibrate your probe offsets for X,Y,and Z axes.
     - [(Ender 3/etc) Creality 4.2.2 or 4.2.7](#ender-3etc-creality-422-or-427)
   - [Safe homing](#safe-homing)
   - [Calibrating the probe offsets](#calibrating-the-probe-offsets)
-    - [X,Y offsets walkthrough:](#xy-offsets-walkthrough)
-    - [Z offset walkthrough:](#z-offset-walkthrough)
+    - [X,Y offsets walkthrough](#xy-offsets-walkthrough)
+    - [Z offset walkthrough](#z-offset-walkthrough)
       - [Prerequisites](#prerequisites)
       - [Calibrating](#calibrating)
     - [Refining Z-offset](#refining-z-offset)
@@ -92,7 +92,7 @@ This can be further tuned to the mathematical center, but I believe we will need
 
 ## Calibrating the probe offsets
 
-### X,Y offsets walkthrough:
+### X,Y offsets walkthrough
 
 The basic idea is to compare the coordinates the printer registers for the nozzle and coordinates registered for the probe in the same physical location on the bed. The offset is the difference between those two sets of coordinates.
 
@@ -165,7 +165,10 @@ Some notes on calibration:
 
 The `+` or `-` are necessary in the `TESTZ` commands! If you do `TESTZ Z=1` it will move the nozzle to what it currently thinks 1mm from the bed is. We use the `TESTZ Z=+1` and `TESTZ Z=-1` to move it +1 or -1 from the **current** position.
 
-Typically this is combined with "the paper test" where you use a sheet of paper (a standard printer paper is about 0.1mm thick) When you feel resistance from the nozzle pressing against the paper, that means you are about 0.1mm away from the bed. This way you don't have to actually contact the bed with the nozzle to do this calibration. (We need the exact 0 height, but obviously we never print that close to the bed or no filament would come out)
+Typically this is combined with "the paper test" where you use a sheet of paper (a standard printer paper is about 0.1mm thick)
+When you feel resistance from the nozzle pressing against the paper, that means you are about 0.1mm away from the bed.
+This way you don't have to actually contact the bed with the nozzle to do this calibration.
+(We need the exact 0 height, but obviously we never print that close to the bed or no filament would come out)
 
 > NOTE: The goal here is to get the nozzle to be literally resting on the bed at `Z=0`. Despite some confusion on this topic, `0` means directly touching the bed. That's OK because we **_never_** actually print at `Z=0`. We print the first layer at `Z=0+{first_layer_height}`.
 >
@@ -173,7 +176,11 @@ Typically this is combined with "the paper test" where you use a sheet of paper 
 >
 > However, it's often easier to just get it close enough with the paper test (and a cold bed) Generally the expansion caused by heating the bed will make up the difference of your sheet of paper, but we can further refine the value during a print anyway (as shown below)
 
-When you run `TESTZ Z=-0.001` and other very small values then nozzle will lift a little before lowering in a kind of bouncing motion. This often looks like it's hit a soft limit and not lowering, but it actually **_is_** still lowering. Klipper does this to get more precise movements and hopefully do less damage if it _does_ hit the bed. The little bounce is normal, and it's still working! (You'll understand when you see it)
+When you run `TESTZ Z=-0.001` and other very small values then nozzle will lift a little before lowering in a kind of bouncing motion.
+This often looks like it's hit a soft limit and not lowering, but it actually **_is_** still lowering.
+Klipper does this to get more precise movements and hopefully do less damage if it _does_ hit the bed.
+The little bounce is normal, and it's still working!
+(You'll understand when you see it)
 
 ### Refining Z-offset
 
