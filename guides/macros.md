@@ -38,7 +38,7 @@ This guide will walk you through creating your first macros for your `START_PRIN
     - [START_PRINT: I have a probe](#start_print-i-have-a-probe)
     - [START_PRINT: Voron TAP](#start_print-voron-tap)
   - [Aliases](#aliases)
-  - [Update:](#update)
+  - [Update: PrusaSlicer and SuperSlicer](#update-prusaslicer-and-superslicer)
   - [Why use macros?](#why-use-macros)
   - [Passing Other Parameters](#passing-other-parameters)
   - [Additional Notes](#additional-notes)
@@ -106,9 +106,9 @@ These code snippets should be entered in your slicer settings. You should _repla
     start_print BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0}
 
 > Note: Cura requires the "dummy" preheat lines to prevent the slicer from adding it's own M109/M190 commands automatically. This is because Cura doesn't take macros into account and will try to add commands it deems "missing" By providing these dummy commands at the start of the gcode it effectively does absolutely nothing, except to appease Cura and allow your macro to do its job.
-
+>
 > Note: The start gcode for Cura has been updated to address a change in the way Cura processes it. Versions newer than 5.0 may try to insert their own M109/M190 commands without this updated format.
-
+>
 > Note: Once again, there has been a change to Cura's start gcode format. The first two commented lines are now optional once again. I will leave them in this guide as they have no ill effects and can actually help moonraker establish temps for the pre-heat buttons in web interfaces.
 
 ## PrusaSlicer Start G-Code
@@ -126,7 +126,7 @@ These code snippets should be entered in your slicer settings. You should _repla
     start_print BED_TEMP={first_layer_bed_temperature} EXTRUDER_TEMP={first_layer_temperature[initial_extruder] + extruder_temperature_offset[initial_extruder]} CHAMBER_TEMP={chamber_temperature}
 
 > Note: In most cases you could get away with using just `{first_layer_temperature}` for the extruder temp, but the one used above is a better, more inclusive option that will account for edge cases like printers with multiple extruders while also still working perfectly for more traditional builds.
-
+>
 > Note: SuperSlicer also has a checkbox that will prevent the slicer from adding **_any_** start gcode automatically. This can be used to negate the need for the "dummy" `M109`/`M190` commands, but you may need to add additional gcode to your `START_PRINT` macro to ensure all the correct commands are being executed.
 >
 > Otherwise: the code snippet provided above will function correctly with the slicer still allowed to add its own commands.
@@ -178,7 +178,7 @@ If you are using SuperSlicer and comfortable with adding the additional commands
     start_print BED_TEMP=[bed_temperature_initial_layer_single] EXTRUDER_TEMP=[nozzle_temperature_initial_layer] CHAMBER_TEMP=[chamber_temperature]
 
 > **IMPORTANT:** Make sure to set the gcode flavor to Klipper. Otherwise you will need to add dummy `M109`/`M190` commands like in PrusaSlicer and IdeaMaker.
-
+>
 > NOTE: Although very similar to PrusaSlicer in many ways, Orca's variable names and notation are unique. The syntax used is different than any of the other slicers shown here.
 
 ## End G-Code for all slicers
@@ -271,7 +271,7 @@ You can make your system compatible with both wordings by creating a simple alia
 
 This will effectively make `PRINT_START` an alias for `START_PRINT` and forward any parameters provided to it.
 
-## Update:
+## Update: PrusaSlicer and SuperSlicer
 
 I am now including the `M109`/`M190` dummy commands in the SuperSlicer/PrusaSlicer Start Gcode. PrusaSlicer appears to need them for the same reasons as Cura.
 

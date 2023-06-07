@@ -31,8 +31,8 @@ This guide describes how to use an SKR-Pico (or any Pico board) as both a CANbus
   - [How to do it](#how-to-do-it)
   - [Alternative Pins](#alternative-pins)
   - [Flashing the CANbridge firmware](#flashing-the-canbridge-firmware)
-  - [Congrats!](#congrats)
-  - [Connect additional CAN boards.](#connect-additional-can-boards)
+  - [Congrats on your first CANbus device](#congrats-on-your-first-canbus-device)
+  - [Connect additional CAN boards](#connect-additional-can-boards)
   - [Extras](#extras)
   - [Conclusions](#conclusions)
 
@@ -305,7 +305,7 @@ Press `Ctrl+X` to exit the editor, followed by `Y` and `Enter` to save changes. 
 
 After making this change I had no issues starting the printer no matter how it was shut down.
 
-## Congrats!
+## Congrats on your first CANbus device
 
 You now have a CANbus network and your first CANbus device!
 
@@ -313,7 +313,7 @@ You could stop here and everything will work just fine.
 
 But you probably did this because you want to:
 
-## Connect additional CAN boards.
+## Connect additional CAN boards
 
 We've now installed the necessary hardware and flashed the firmware so we have a working CANbus network.
 

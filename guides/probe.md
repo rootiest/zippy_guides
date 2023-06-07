@@ -17,16 +17,16 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-![header](../resources/probe_header.png)
-
 # Probe Offsets
+
+![header](../resources/probe_header.png)
 
 This guide will help you calibrate your probe offsets for X,Y,and Z axes.
 
 - [Probe Offsets](#probe-offsets)
   - [References](#references)
   - [Sample Config](#sample-config)
-    - [(Ender 3/etc) Creality 4.2.2 or 4.2.7:](#ender-3etc-creality-422-or-427)
+    - [(Ender 3/etc) Creality 4.2.2 or 4.2.7](#ender-3etc-creality-422-or-427)
   - [Safe homing](#safe-homing)
   - [Calibrating the probe offsets](#calibrating-the-probe-offsets)
     - [X,Y offsets walkthrough:](#xy-offsets-walkthrough)
@@ -43,7 +43,7 @@ This guide will help you calibrate your probe offsets for X,Y,and Z axes.
 
 ## Sample Config
 
-### (Ender 3/etc) Creality 4.2.2 or 4.2.7:
+### (Ender 3/etc) Creality 4.2.2 or 4.2.7
 
 The following is a typical config for a CRTouch:
 
@@ -122,7 +122,7 @@ Done!
 
 ![Offset diagram](../resources/offset-diagram.png))
 
-### Z offset walkthrough:
+### Z offset walkthrough
 
 Klipper has a built-in function for finding the probe z-offset.
 
