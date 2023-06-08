@@ -99,4 +99,6 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 
 Rootiest#5668 on Discord (Voron and Klipper servers)
 
+Join the [Rootiest Discord server](https://discord.gg/AYjVSvrVF2) for information and support for my projects.
+
 ![snek](resources/github-snake-dark.svg)
