@@ -85,12 +85,18 @@ A collection of helpful links for Klipper users.
 
 Contributions are welcome! If you have a guide you would like to see included here, please open an issue or submit a pull request.
 
+## Issues
+
+If you find an issue with any of the guides, please open an issue or submit a pull request.
+
+If you just have a question or need help, feel free to open an issue or contact me on Discord.
+
 ## License
 
 This project is licensed under the terms of the [GNU General Public License v3.0](LICENSE).
 
 ## Contact
 
-Rootiest#5668 on Discord
+Rootiest#5668 on Discord (Voron and Klipper servers)
 
 ![snek](resources/github-snake-dark.svg)
