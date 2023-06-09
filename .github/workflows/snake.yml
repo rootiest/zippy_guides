@@ -42,6 +42,7 @@ jobs:
             resources/github-snake.svg
             resources/github-snake-dark.svg?palette=github-dark
             resources/snake.gif?color_snake=purple&color_dots=#ebedf0,#9be9a8,#40c463,#30a14e,#216e39
+            resources/snake-dark.gif?color_snake=purple&color_dots=#161b22,#01311f,#006d32,#26a641,#40c463
             resources/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
             resources/git-snake.gif
             resources/git-snake-dark.gif?palette=github-dark
@@ -49,11 +50,11 @@ jobs:
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add ./resources
-          git commit -a -m "Add snek"
+          git add -f ./resources
+          git commit --allow-empty -a -m "Update snek"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-          force: true
+
