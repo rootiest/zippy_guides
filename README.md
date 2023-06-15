@@ -21,7 +21,7 @@
 
 # Guides For Klipper Things and Stuff
 
-[![GitHub Super-Linter](https://github.com/rootiest/zppy_guides/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![GitHub Super-Linter](https://github.com/rootiest/zippy_guides/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 ## [Axis Limits](guides/axis_limits.md)
 
