@@ -330,7 +330,7 @@ It's pretty powerful stuff, and macros are absolutely worth using!
 
 You can pass all sorts of values from the slicer to your macros if you want to get other information into Klipper such as the material/filament type, the nozzle diameter, etc.
 
-Check out [my SET_MATERIAL and SET_NOZZLE macros](../macros/SET_MATERIAL.cfg) for an example of using other slicer values in your macros.
+Check out [my SET_MATERIAL and SET_NOZZLE macros](../resources/SET_MATERIAL.cfg) for an example of using other slicer values in your macros.
 
 In Cura we call those using:
 

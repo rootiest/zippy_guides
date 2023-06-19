@@ -99,13 +99,13 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 
 ## Contact
 
-Rootiest#5668 on Discord (Voron and Klipper servers)
+Rootiest on Discord (Voron and Klipper servers)
 
 Donate to support my work:
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/rootiest)
 
-Join the [Rootiest Discord server](https://discord.gg/AYjVSvrVF2) for information and support for my projects.
+Join the [Rootiest Discord server](http://rootiest.com/discord.html) for information and support for my projects.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/github-snake-dark.svg">

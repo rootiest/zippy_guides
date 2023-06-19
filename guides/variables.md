@@ -618,6 +618,6 @@ This is a great resource that provides a ton of information along the same lines
 
 However, use it with caution as some of it is outdated. For example: the references to `default_parameter` are no longer valid and have been deprecated on current Klipper versions.
 
-If you have questions/criticisms or find parts of this guide confusing then please feel free to contact me on Discord at `rootiest#5668`.
+If you have questions/criticisms or find parts of this guide confusing then please feel free to contact me on Discord as `Rootiest`.
 
 I am always happy to explain topics in more detail or make corrections to my guides where warranted.
