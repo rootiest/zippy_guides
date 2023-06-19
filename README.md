@@ -99,7 +99,7 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 
 ## Contact
 
-Rootiest#5668 on Discord (Voron and Klipper servers)
+Rootiest on Discord (Voron and Klipper servers)
 
 Donate to support my work:
 
