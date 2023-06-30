@@ -45,6 +45,10 @@ Learn more advanced techniques you can use in your macros.
 
 Covers parameters, variables and types, gcode_variables, persistant_variables, the printer object, delayed_gcode, and more.
 
+## [Using Includes to Organize Your Config](guides/includes.md)
+
+Learn how to use includes to organize your config and share code between multiple configs.
+
 ## [USB Pico Setup](guides/usb-pico.md)
 
 Set up a USB-connected Pico (or any RP2040 board) as a secondary mcu.
