@@ -17,9 +17,9 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-![header](resources/pretty_header.png)
-
 # Guides For Klipper Things and Stuff
+
+![header](resources/pretty_header.png)
 
 [![GitHub Super-Linter](https://github.com/rootiest/zippy_guides/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
