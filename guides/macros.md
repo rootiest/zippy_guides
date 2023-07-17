@@ -24,8 +24,8 @@
 This guide will walk you through creating your first macros for your `START_PRINT` and `END_PRINT` gcode commands. This will allow you to use Klipper to manage your start and end procedures rather than manually adding them to your slicer.
 
 - [Creating Your First Macros](#creating-your-first-macros)
-  - [Basic START_PRINT Macro](#basic-start_print-macro)
-  - [END_PRINT Macro](#end_print-macro)
+  - [Basic START\_PRINT Macro](#basic-start_print-macro)
+  - [END\_PRINT Macro](#end_print-macro)
 - [Slicer Settings](#slicer-settings)
   - [Cura Start G-Code](#cura-start-g-code)
   - [PrusaSlicer Start G-Code](#prusaslicer-start-g-code)
@@ -34,9 +34,9 @@ This guide will walk you through creating your first macros for your `START_PRIN
   - [IdeaMaker Start G-Code](#ideamaker-start-g-code)
   - [OrcaSlicer Start G-Code](#orcaslicer-start-g-code)
   - [End G-Code for all slicers](#end-g-code-for-all-slicers)
-  - [Alternative START_PRINT macros](#alternative-start_print-macros)
-    - [START_PRINT: I have a probe](#start_print-i-have-a-probe)
-    - [START_PRINT: Voron TAP](#start_print-voron-tap)
+  - [Alternative START\_PRINT macros](#alternative-start_print-macros)
+    - [START\_PRINT: I have a probe](#start_print-i-have-a-probe)
+    - [START\_PRINT: Voron TAP](#start_print-voron-tap)
   - [Aliases](#aliases)
   - [Update: PrusaSlicer and SuperSlicer](#update-prusaslicer-and-superslicer)
   - [Why use macros?](#why-use-macros)
@@ -49,46 +49,50 @@ You can just paste these macros into your `printer.cfg` file.
 
 ## Basic START_PRINT Macro
 
-    [gcode_macro START_PRINT]
-    gcode:
-        {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
-        {% set EXTRUDER_TEMP = params.EXTRUDER_TEMP|default(190)|float %}
-        # Start bed heating (but don't wait for it)
-        M140 S{BED_TEMP}
-        # Use absolute coordinates
-        G90
-        # Reset the G-Code Z offset (adjust Z offset if needed)
-        SET_GCODE_OFFSET Z=0.0
-        # Home the printer
-        G28
-        # Move the nozzle near the bed
-        G1 Z5 F3000
-        # Move the nozzle very close to the bed
-        G1 Z0.15 F300
-        # Wait for bed to reach temperature
-        M190 S{BED_TEMP}
-        # Set and wait for nozzle to reach temperature
-        M109 S{EXTRUDER_TEMP}
+```ini
+[gcode_macro START_PRINT]
+gcode:
+    {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+    {% set EXTRUDER_TEMP = params.EXTRUDER_TEMP|default(190)|float %}
+    # Start bed heating (but don't wait for it)
+    M140 S{BED_TEMP}
+    # Use absolute coordinates
+    G90
+    # Reset the G-Code Z offset (adjust Z offset if needed)
+    SET_GCODE_OFFSET Z=0.0
+    # Home the printer
+    G28
+    # Move the nozzle near the bed
+    G1 Z5 F3000
+    # Move the nozzle very close to the bed
+    G1 Z0.15 F300
+    # Wait for bed to reach temperature
+    M190 S{BED_TEMP}
+    # Set and wait for nozzle to reach temperature
+    M109 S{EXTRUDER_TEMP}
+```
 
 For alternative START_PRINT macros, see
 [Alternative START_PRINT macros](#alternative-start_print-macros)
 
 ## END_PRINT Macro
 
-    [gcode_macro END_PRINT]
-    gcode:
-        # Turn off bed, extruder, and fan
-        M140 S0
-        M104 S0
-        M106 S0
-        # Move nozzle away from print while retracting
-        G91
-        G1 X-2 Y-2 E-3 F300
-        # Raise nozzle by 10mm
-        G1 Z10 F3000
-        G90
-        # Disable steppers
-        M84
+```ini
+[gcode_macro END_PRINT]
+gcode:
+    # Turn off bed, extruder, and fan
+    M140 S0
+    M104 S0
+    M106 S0
+    # Move nozzle away from print while retracting
+    G91
+    G1 X-2 Y-2 E-3 F300
+    # Raise nozzle by 10mm
+    G1 Z10 F3000
+    G90
+    # Disable steppers
+    M84
+```
 
 These are just the sample start_print and end_print macros copied directly
 from
@@ -101,9 +105,11 @@ These code snippets should be entered in your slicer settings. You should _repla
 
 ## Cura Start G-Code
 
-    ; M190 S{material_bed_temperature_layer_0}
-    ; M109 S{material_print_temperature_layer_0}
-    start_print BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0}
+```ini
+; M190 S{material_bed_temperature_layer_0}
+; M109 S{material_print_temperature_layer_0}
+start_print BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0}
+```
 
 > Note: Cura requires the "dummy" preheat lines to prevent the slicer from adding it's own M109/M190 commands automatically. This is because Cura doesn't take macros into account and will try to add commands it deems "missing" By providing these dummy commands at the start of the gcode it effectively does absolutely nothing, except to appease Cura and allow your macro to do its job.
 >
@@ -113,17 +119,21 @@ These code snippets should be entered in your slicer settings. You should _repla
 
 ## PrusaSlicer Start G-Code
 
-    M109 S0
-    M190 S0
-    start_print EXTRUDER_TEMP={first_layer_temperature[initial_extruder]} BED_TEMP={first_layer_bed_temperature[initial_extruder]}
+```properties
+M109 S0
+M190 S0
+start_print EXTRUDER_TEMP={first_layer_temperature[initial_extruder]} BED_TEMP={first_layer_bed_temperature[initial_extruder]}
+```
 
 > Note: PrusaSlicer recently changed their placeholder/variable formatting. The above applies to PrusaSlicer 2.5.0. For previous versions the SuperSlicer example below should be compatible.
 
 ## SuperSlicer Start G-Code
 
-    M109 S0
-    M190 S0
-    start_print BED_TEMP={first_layer_bed_temperature} EXTRUDER_TEMP={first_layer_temperature[initial_extruder] + extruder_temperature_offset[initial_extruder]} CHAMBER_TEMP={chamber_temperature}
+```properties
+M109 S0
+M190 S0
+start_print BED_TEMP={first_layer_bed_temperature} EXTRUDER_TEMP={first_layer_temperature[initial_extruder] + extruder_temperature_offset[initial_extruder]} CHAMBER_TEMP={chamber_temperature}
+```
 
 > Note: In most cases you could get away with using just `{first_layer_temperature}` for the extruder temp, but the one used above is a better, more inclusive option that will account for edge cases like printers with multiple extruders while also still working perfectly for more traditional builds.
 >
@@ -133,9 +143,11 @@ These code snippets should be entered in your slicer settings. You should _repla
 
 Additionally, the PrusaSlicer format shown in the above section is also compatible with SuperSlicer. Or they can be combined to cover every possible build scenario:
 
-    M109 S0
-    M190 S0
-    start_print BED_TEMP={first_layer_bed_temperature[initial_extruder]} EXTRUDER_TEMP={first_layer_temperature[initial_extruder] + extruder_temperature_offset[initial_extruder]} CHAMBER_TEMP={chamber_temperature}
+```properties
+M109 S0
+M190 S0
+start_print BED_TEMP={first_layer_bed_temperature[initial_extruder]} EXTRUDER_TEMP={first_layer_temperature[initial_extruder] + extruder_temperature_offset[initial_extruder]} CHAMBER_TEMP={chamber_temperature}
+```
 
 As SuperSlicer supports Klipper directly, you can get even more control using the format in the [Advanced SuperSlicer Start G-code section](#advanced-superslicer-start-g-code) below.
 
@@ -149,17 +161,21 @@ It's important to note that when using this option, the slicer will not add **_a
 
 I compared generated gcode files with and without this box selected and aside from preheat temperatures (which should already be handled by your macro) SuperSlicer also added the following commands:
 
-    M107 ; disable fan
-    G21 ; set units to millimeters
-    G90 ; use absolute coordinates
-    M82 ; use absolute distances for extrusion
-    G92 E0 ; reset extrusion distance
+```gcode
+M107   ; disable fan
+G21    ; set units to millimeters
+G90    ; use absolute coordinates
+M82    ; use absolute distances for extrusion
+G92 E0 ; reset extrusion distance
+```
 
 If using this option, I would recommend adding those commands to your `START_PRINT` macro so that you do not run into any issues.
 
 With those added in your `START_PRINT` macro, your start gcode in SuperSlicer could simply be the following:
 
-    start_print BED_TEMP={first_layer_bed_temperature} EXTRUDER_TEMP={first_layer_temperature[initial_extruder] + extruder_temperature_offset[initial_extruder]} CHAMBER_TEMP={chamber_temperature}
+```properties
+start_print BED_TEMP={first_layer_bed_temperature} EXTRUDER_TEMP={first_layer_temperature[initial_extruder] + extruder_temperature_offset[initial_extruder]} CHAMBER_TEMP={chamber_temperature}
+```
 
 While more advanced, this feature gives you far more control over the behavior of your prints (or at least the pre-print behavior).
 
@@ -167,15 +183,19 @@ If you are using SuperSlicer and comfortable with adding the additional commands
 
 ## IdeaMaker Start G-Code
 
-    M190 S0
-    M109 S0
-    start_print BED_TEMP={temperature_heatbed} EXTRUDER_TEMP={temperature_extruder1}
+```gcode
+M190 S0
+M109 S0
+start_print BED_TEMP={temperature_heatbed} EXTRUDER_TEMP={temperature_extruder1}
+```
 
 > NOTE: The same quirks as PrusaSlicer apply, so it is necessary to use `M190`/`M109` commands to prevent the slicer adding its own.
 
 ## OrcaSlicer Start G-Code
 
-    start_print BED_TEMP=[bed_temperature_initial_layer_single] EXTRUDER_TEMP=[nozzle_temperature_initial_layer] CHAMBER_TEMP=[chamber_temperature]
+```properties
+start_print BED_TEMP=[bed_temperature_initial_layer_single] EXTRUDER_TEMP=[nozzle_temperature_initial_layer] CHAMBER_TEMP=[chamber_temperature]
+```
 
 > **IMPORTANT:** Make sure to set the gcode flavor to Klipper. Otherwise you will need to add dummy `M109`/`M190` commands like in PrusaSlicer and IdeaMaker.
 >
@@ -183,7 +203,9 @@ If you are using SuperSlicer and comfortable with adding the additional commands
 
 ## End G-Code for all slicers
 
-    end_print
+```properties
+end_print
+```
 
 > Note: This code is the same for all Slicers. We just need to call the `END_PRINT` macro, there's no need to pass any values to it.
 
@@ -193,71 +215,75 @@ If you are using SuperSlicer and comfortable with adding the additional commands
 
 This is a modified version of the simple macro shown above. This adds some probe-specific commands.
 
-    [gcode_macro START_PRINT]
-    gcode:
-        {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
-        {% set EXTRUDER_TEMP = params.EXTRUDER_TEMP|default(190)|float %}
-        # Heat bed for probing
-        M190 S{BED_TEMP}
-        # Use absolute coordinates
-        G90
-        # Home the printer
-        G28
+```ini
+[gcode_macro START_PRINT]
+gcode:
+    {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+    {% set EXTRUDER_TEMP = params.EXTRUDER_TEMP|default(190)|float %}
+    # Heat bed for probing
+    M190 S{BED_TEMP}
+    # Use absolute coordinates
+    G90
+    # Home the printer
+    G28
 
-        # If you are using QGL:
-        #QUAD_GANTRY_LEVEL
-        #G28 Z
+    # If you are using QGL:
+    #QUAD_GANTRY_LEVEL
+    #G28 Z
 
-        # If you are using Z-Tilt:
-        #Z_TILT_ADJUST
+    # If you are using Z-Tilt:
+    #Z_TILT_ADJUST
 
-        # If you are generating a new bed mesh:
-        BED_MESH_CALIBRATE
+    # If you are generating a new bed mesh:
+    BED_MESH_CALIBRATE
 
-        # If you are loading an existing mesh:
-        #BED_MESH_PROFILE LOAD=default
+    # If you are loading an existing mesh:
+    #BED_MESH_PROFILE LOAD=default
 
-        # Move the nozzle near the bed
-        G1 Z5 F3000
-        # Set and wait for nozzle to reach printing temperature
-        M109 S{EXTRUDER_TEMP}
-        # Start printing!
+    # Move the nozzle near the bed
+    G1 Z5 F3000
+    # Set and wait for nozzle to reach printing temperature
+    M109 S{EXTRUDER_TEMP}
+    # Start printing!
+```
 
 ### START_PRINT: Voron TAP
 
 This is a modified version of the simple macro shown above. This adds additional commands and modifies the order slightly to be more compatible with Voron TAP builds.
 
-    [gcode_macro START_PRINT]
-    gcode:
-        {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
-        {% set EXTRUDER_TEMP = params.EXTRUDER_TEMP|default(190)|float %}
-        # Heat nozzle for probing
-        M104 S150
-        # Heat bed for probing
-        M190 S{BED_TEMP}
-        # Use absolute coordinates
-        G90
-        # Home the printer
-        G28
+```ini
+[gcode_macro START_PRINT]
+gcode:
+    {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+    {% set EXTRUDER_TEMP = params.EXTRUDER_TEMP|default(190)|float %}
+    # Heat nozzle for probing
+    M104 S150
+    # Heat bed for probing
+    M190 S{BED_TEMP}
+    # Use absolute coordinates
+    G90
+    # Home the printer
+    G28
 
-        # If you are using QGL:
-        QUAD_GANTRY_LEVEL
-        G28 Z
+    # If you are using QGL:
+    QUAD_GANTRY_LEVEL
+    G28 Z
 
-        # If you are using Z-Tilt:
-        #Z_TILT_ADJUST
+    # If you are using Z-Tilt:
+    #Z_TILT_ADJUST
 
-        # If you are generating a new bed mesh:
-        BED_MESH_CALIBRATE
+    # If you are generating a new bed mesh:
+    BED_MESH_CALIBRATE
 
-        # If you are loading an existing mesh:
-        #BED_MESH_PROFILE LOAD=default
+    # If you are loading an existing mesh:
+    #BED_MESH_PROFILE LOAD=default
 
-        # Move the nozzle near the bed
-        G1 Z5 F3000
-        # Set and wait for nozzle to reach printing temperature
-        M109 S{EXTRUDER_TEMP}
-        # Start printing!
+    # Move the nozzle near the bed
+    G1 Z5 F3000
+    # Set and wait for nozzle to reach printing temperature
+    M109 S{EXTRUDER_TEMP}
+    # Start printing!
+```
 
 ## Aliases
 
@@ -265,9 +291,11 @@ Ever get frustrated that sometimes documentation uses `PRINT_START` and other ti
 
 You can make your system compatible with both wordings by creating a simple alias macro like so:
 
-    [gcode_macro PRINT_START]
-    gcode:
-        START_PRINT {rawparams}
+```ini
+[gcode_macro PRINT_START]
+gcode:
+    START_PRINT {rawparams}
+```
 
 This will effectively make `PRINT_START` an alias for `START_PRINT` and forward any parameters provided to it.
 
@@ -299,12 +327,14 @@ Macros can use more complex logic that doesn't exist in basic gcode commands tha
 
 Here's a really basic example:
 
+```jinja
     {% set NOZZLE = printer.extruder.nozzle_diameter|default(0.4)|float %}
     {% if NOZZLE > 0.4 %}
         M220 S75
     {% else %}
         M220 S100
     {% endif %}
+```
 
 This is not a Jinja2 guide, so I will just briefly explain what this does:
 
@@ -334,21 +364,29 @@ Check out [my SET_MATERIAL and SET_NOZZLE macros](../resources/SET_MATERIAL.cfg)
 
 In Cura we call those using:
 
-    SET_MATERIAL MATERIAL='{material_type}'
+```properties
+SET_MATERIAL MATERIAL='{material_type}'
+```
 
 In PrusaSlicer/SuperSlicer:
 
-    SET_MATERIAL MATERIAL='{filament_type[initial_extruder]}'
+```properties
+SET_MATERIAL MATERIAL='{filament_type[initial_extruder]}'
+```
 
 Then in the macro the variable is assigned just like we do in the `START_PRINT` macro:
 
-    {% set MATERIAL = params.MATERIAL|default('PLA')|string %}
+```jinja
+{% set MATERIAL = params.MATERIAL|default('PLA')|string %}
+```
 
 So how do we find those variable names?
 
 In PrusaSlicer/SuperSlicer it's simple: just hover your mouse cursor over a settings field and the tooltip will show something like this:
 
-    parameter name: wall_thickness
+```yaml
+parameter name: wall_thickness
+```
 
 In this above example, the variable we'd use is `wall_thickness`
 
@@ -364,11 +402,15 @@ However, you can add them on to the end of your `START_PRINT` command and use th
 
 For example, in Cura you might use:
 
-    start_print BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} MATERIAL='{material_type}'
+```properties
+start_print BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} MATERIAL='{material_type}'
+```
 
 and then add this inside your `START_PRINT` macro:
 
-    {% set MATERIAL = params.MATERIAL|default('PLA')|string %}
+```jinja
+{% set MATERIAL = params.MATERIAL|default('PLA')|string %}
+```
 
 You could even work with gcode variables directly using a `SET_GCODE_VARIABLE` command.
 
@@ -390,10 +432,14 @@ It also serves as an additional example of [using a slicer variable in a paramet
 
 If you _are_ interested in using it in your macro, simply include something like this in your macro:
 
-    {% set CHAMBER_TEMP = params.CHAMBER_TEMP|default(50)|float %}
+```jinja
+{% set CHAMBER_TEMP = params.CHAMBER_TEMP|default(50) float %}
+```
 
 and then use it in a command like this:
 
-    SET_HEATER_TEMPERATURE HEATER=chamber_heater TARGET={CHAMBER_TEMP}
+```properties
+SET_HEATER_TEMPERATURE HEATER=chamber_heater TARGET={CHAMBER_TEMP}
+```
 
 And again, if you don't need this or use it, the start gcode will still work perfectly with that parameter whether you use it or not.

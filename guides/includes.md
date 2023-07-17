@@ -31,25 +31,25 @@ Includes are a way to split your config into multiple files. This is useful for 
 
 Includes are a simple concept. You can include another file in your config by using the `include` keyword. For example, if you have a file called `my_include.cfg` in the same directory as your config, you can include it like this:
 
-```properties
+```ini
 [include my_include.cfg]
 ```
 
 This will include the contents of `my_include.cfg` in your config. You can also include files from other directories by using a relative path:
 
-```properties
+```ini
 [include ../macros/my_include.cfg]
 ```
 
 You can also use wildcards to include multiple files at once:
 
-```properties
+```ini
 [include *.cfg]
 ```
 
 or include all .cfg files in a directory:
 
-```properties
+```ini
 [include macros/*.cfg]
 ```
 
@@ -83,13 +83,13 @@ Second, the save_config feature is not compatible with sections that are include
 
 `printer.cfg`:
 
-```properties
+```ini
 [include hotend.cfg]
 ```
 
 `hotend.cfg`:
 
-```properties
+```ini
 [extruder]
 step_pin: EBBCan: PD0
 dir_pin: !EBBCan: PD1
@@ -119,7 +119,7 @@ In order to avoid this issue we can do the following:
 
 `printer.cfg`:
 
-```properties
+```ini
 [include hotend.cfg]
 
 [extruder]
@@ -131,7 +131,7 @@ pid_Kd: 108.982
 
 `hotend.cfg`:
 
-```properties
+```ini
 [extruder]
 step_pin: EBBCan: PD0
 dir_pin: !EBBCan: PD1
