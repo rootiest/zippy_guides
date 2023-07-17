@@ -441,7 +441,3 @@ For more information:
 [Config Reference](https://www.klipper3d.org/Config_Reference.html#mcu-my_extra_mcu)
 
 [Pico + ADXL Accelerometer Build Guide](https://klipper.discourse.group/t/raspberry-pi-pico-adxl345-portable-resonance-measurement/1757)
-
-```
-
-```
