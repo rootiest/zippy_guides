@@ -17,20 +17,20 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-![header](../resources/axis_header.png)
-
 # Finding the axis limits
+
+![header](../resources/axis_header.png)
 
 - [Finding the axis limits](#finding-the-axis-limits)
   - [Calibrating 0,0 and position_min](#calibrating-00-and-position_min)
     - [Notes](#notes)
-    - [Calibration steps](#calibration-steps)
+    - [Min calibration steps](#min-calibration-steps)
   - [Finding position_max](#finding-position_max)
     - [Notes](#notes-1)
-    - [Calibration steps](#calibration-steps-1)
+    - [Max calibration steps](#max-calibration-steps)
   - [What about Bed Size](#what-about-bed-size)
     - [Configure the Slicer](#configure-the-slicer)
-  - [You did it!](#you-did-it)
+  - [Congrats! You did it](#congrats-you-did-it)
 
 The purpose of the stepper `position_min` and `position_max` is to establish the maximum **_physical_** range for each axis, not just the bed size on paper.
 
@@ -64,7 +64,7 @@ Ex:
     Recv: // toolhead: X:8.338078 Y:-3.123175 Z:233.347878 E:0.000000
 ```
 
-### Calibration steps
+### Min calibration steps
 
 Home your printer and then use the Mainsail/Fluidd interface controls to manually move the nozzle directly above the front-left corner. Make note of the coordinates it shows.
 
@@ -86,7 +86,7 @@ This step is necessary to find the correct values for `position_max`. If you do 
 
 Remember to calibrate the `position_min` and `0,0` as described above _before_ beginning this step.
 
-### Calibration steps
+### Max calibration steps
 
 Once your `0,0` is correct, set your `position_max` for each axis to a value much higher than you know is possible, for an Ender 3 try 300 for each `position_max`. If your printer has a larger bed, use a suitably large number that would allow for moves far beyond the limits of your machine.
 
@@ -151,7 +151,7 @@ Note the Z coordinates at that position and assign that value to your `stepper_z
 
 You can also enter that value in your Slicer settings as the maximum height so that the slicer will not generate prints outside of your printer's physical limits.
 
-## You did it!
+## Congrats! You did it
 
 And you're done!
 
