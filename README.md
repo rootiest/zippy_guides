@@ -37,7 +37,7 @@ Calibrate the boundaries for bed meshing.
 
 Create and use macros for your `START_PRINT` and `END_PRINT` gcode commands.
 
-## [Advanced Macro Techniques](guides/variables.md) (WIP)
+## [Advanced Macro Techniques](guides/variables.md)
 
 Learn more advanced techniques you can use in your macros.
 
