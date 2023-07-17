@@ -47,17 +47,19 @@ This guide will help you calibrate your probe offsets for X,Y,and Z axes.
 
 The following is a typical config for a CRTouch:
 
-    [bltouch]
-    sensor_pin: ^PB1
-    control_pin: PB0
-    x_offset: 0                  # Change to fit your printer
-    y_offset: 0                  # Change to fit your printer
-    z_offset: 2.295              # Change to fit your printer
-    probe_with_touch_mode: True
-    stow_on_each_sample: False   # Keep the probe extended between points
-    samples: 2                   # Probe each point at least twice
-    samples_tolerance: 0.0125    # If those measurements aren't this close then
-    samples_tolerance_retries: 5 # Re-probe this many times and use the average
+```ini
+[bltouch]
+sensor_pin: ^PB1
+control_pin: PB0
+x_offset: 0                  # Change to fit your printer
+y_offset: 0                  # Change to fit your printer
+z_offset: 2.295              # Change to fit your printer
+probe_with_touch_mode: True
+stow_on_each_sample: False   # Keep the probe extended between points
+samples: 2                   # Probe each point at least twice
+samples_tolerance: 0.0125    # If those measurements aren't this close then
+samples_tolerance_retries: 5 # Re-probe this many times and use the average
+```
 
 You may find that your bl-touch requires slightly different configurations. There are many different variations and clones of the original bl-touch design.
 
@@ -77,8 +79,10 @@ It's important to configure a `[safe_z_home]` section so your probe knows to hom
 
 You can use the defaults:
 
-    [safe_z_home]
-    home_xy_position: 100, 100
+```ini
+[safe_z_home]
+home_xy_position: 100, 100
+```
 
 as a "good enough" on most beds, but it doesn't hurt to configure it a little better.
 
@@ -134,8 +138,10 @@ It's also [described in more detail here](https://www.klipper3d.org/Bed_Level.ht
 
 You will likely need to set your `stepper_z` `position_min` to a negative value:
 
-    [stepper_z]
-    position_min: -10
+```ini
+[stepper_z]
+position_min: -10
+```
 
 during the calibration.
 
@@ -192,11 +198,13 @@ The process to do so is similar to what you'd call "baby-stepping" on Marlin.
 
 If you don't have some manner of control interface to perform the baby-stepping, you can use gcode commands:
 
-    # Move the z-axis offset 0.2mm higher
-    SET_GCODE_OFFSET Z=0.2 MOVE=1
+```ini
+# Move the z-axis offset 0.2mm higher
+SET_GCODE_OFFSET Z=0.2 MOVE=1
 
-    # Move the z-axis offset 0.3mm lower
-    SET_GCODE_OFFSET Z=-0.3 MOVE=1
+# Move the z-axis offset 0.3mm lower
+SET_GCODE_OFFSET Z=-0.3 MOVE=1
+```
 
 Reference: [SET_GCODE_OFFSET](https://www.klipper3d.org/G-Codes.html#set_gcode_offset)
 
@@ -204,8 +212,10 @@ Reference: [SET_GCODE_OFFSET](https://www.klipper3d.org/G-Codes.html#set_gcode_o
 
 Then use the following commands after the print completes to save the offset to your config:
 
-    Z_OFFSET_APPLY_PROBE
-    SAVE_CONFIG
+```ini
+Z_OFFSET_APPLY_PROBE
+SAVE_CONFIG
+```
 
 Reference: [Z_OFFSET_APPLY_PROBE](https://www.klipper3d.org/G-Codes.html#z_offset_apply_probe)
 

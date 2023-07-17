@@ -49,8 +49,10 @@ However, some steps such as putting the board into flashing mode may differ slig
 
 Run the following:
 
-    cd ~/klipper
-    make menuconfig
+```shell
+cd ~/klipper
+make menuconfig
+```
 
 Use this configuration for a usb-connected Pico board:
 
@@ -62,7 +64,9 @@ Press `y` to save changes.
 
 Now run:
 
-    make
+```shell
+make
+```
 
 This will take a moment, and once complete it will spit out a `klipper.u2f` file in `~/klipper/out`
 
@@ -74,7 +78,9 @@ This is typically performed by holding the boot button while connecting the boar
 
 You can now try to run the following command:
 
-    sudo mount /dev/sda1 /mnt
+```shell
+sudo mount /dev/sda1 /mnt
+```
 
 If putting the Pico into flash-mode was unsuccessful, it won't show up as a mountable storage device.
 
@@ -82,7 +88,9 @@ If you have other external storage devices the `sda1` part may be different.
 
 You can use the following command to see all the available storage devices:
 
-    sudo fdisk -l
+```shell
+sudo fdisk -l
+```
 
 Match your Pico with the correct `/dev/sda#` address and modify the `mount` command as necessary.
 
@@ -90,7 +98,9 @@ When you have successfully mounted the storage there will be no feedback or erro
 
 You can test it by running:
 
-    ls /mnt
+```shell
+ls /mnt
+```
 
 The storage should contain a couple of files:
 
@@ -101,7 +111,9 @@ If the `ls` command returns those, you are ready to flash!
 
 Run the following command:
 
-    sudo cp out/klipper.uf2 /mnt
+```shell
+sudo cp out/klipper.uf2 /mnt
+```
 
 This will copy the firmware image we compiled earlier onto the Pico's storage and it will be flashed automatically.
 
@@ -117,7 +129,9 @@ You can now run the `ls /dev/serial/by-id/*` command and if the flash was succes
 
 An RP2040 ID will look something like this:
 
-    usb-Klipper_rp2040_E660C063145C6B24-if00
+```usb-id
+usb-Klipper_rp2040_E660C063145C6B24-if00
+```
 
 A properly flashed Klipper firmware will have `Klipper_rp2040` in the ID.
 
@@ -133,8 +147,10 @@ This is the easy part.
 
 In your `printer.cfg` file, add the following:
 
-    [mcu my_pico]
-    serial: /dev/serial/by-id/usb-Klipper_rp2040_E660C062135C6A24-if00
+```ini
+[mcu my_pico]
+serial: /dev/serial/by-id/usb-Klipper_rp2040_E660C062135C6A24-if00
+```
 
 Remember to change the `usb-Klipper_rp2040_E660C063145C6B24-if00` to your board's unique ID.
 
@@ -158,11 +174,13 @@ You can wire up an accelerometer like an [ADXL345](https://www.klipper3d.org/Con
 
 Here is an example:
 
-    [adxl345 my_accel]
-    cs_pin: my_pico: gpio1
-    spi_software_sclk_pin: my_pico: gpio2
-    spi_software_mosi_pin: my_pico: gpio3
-    spi_software_miso_pin: my_pico: gpio4
+```ini
+[adxl345 my_accel]
+cs_pin: my_pico: gpio1
+spi_software_sclk_pin: my_pico: gpio2
+spi_software_mosi_pin: my_pico: gpio3
+spi_software_miso_pin: my_pico: gpio4
+```
 
 Then you just wire up the corresponding pins on the accelerometer to the gpio pins. The pins you use may be different depending on the model of Pico you have.
 
@@ -170,34 +188,44 @@ I try to use the existing SPI bus, but as shown in the example above, you can ju
 
 If you only have the one accelerometer, you do not need to name it. You can just use:
 
-    [adxl345]
+```ini
+[adxl345]
+```
 
 instead of:
 
-    [adxl345 my_accel]
+```ini
+[adxl345 my_accel]
+```
 
 You will then need to add a [resonance_tester](https://www.klipper3d.org/Config_Reference.html#resonance_tester) section.
 
 If you have multiple accelerometers that will look something like this:
 
-    [resonance_tester]
-    accel_chip_x: adxl345 my_other_accel
-    accel_chip_y: adxl345 my_accel
-    probe_points:
-        100,100,20 # an example
+```ini
+[resonance_tester]
+accel_chip_x: adxl345 my_other_accel
+accel_chip_y: adxl345 my_accel
+probe_points:
+    100,100,20 # an example
+```
 
 If you have only a single accelerometer, it will look more like this:
 
-    [resonance_tester]
-    accel_chip: adxl345
-    probe_points:
-        100,100,20 # an example
+```ini
+[resonance_tester]
+accel_chip: adxl345
+probe_points:
+    100,100,20 # an example
+```
 
 The `probe_points` value is the X,Y,Z coordinates where you would like the test to occur. You can also test in multiple locations by adding additional coordinates on a new line below. For example:
 
-    probe_points:
-        100,100,20 # an example
-        50,50,100  # another example
+```yaml
+probe_points:
+    100,100,20 # an example
+    50,50,100  # another example
+```
 
 [This is a fantastic resource if you want more information on setting up an accelerometer.](https://klipper.discourse.group/t/raspberry-pi-pico-adxl345-portable-resonance-measurement/1757)
 
@@ -213,11 +241,13 @@ This is a built-in sensor that is present on all RP2040 chips.
 
 To do that, simply add the following to your `printer.cfg` file:
 
-    [temperature_sensor pico_temp]
-    sensor_type: temperature_mcu
-    sensor_mcu: my_pico
-    min_temp: 0
-    max_temp: 100
+```ini
+[temperature_sensor pico_temp]
+sensor_type: temperature_mcu
+sensor_mcu: my_pico
+min_temp: 0
+max_temp: 100
+```
 
 Note that we are using `my_pico` for the `sensor_mcu`
 
@@ -237,17 +267,23 @@ We can reference the current core temperature in macros using the following meth
 
 First we create a shortcut allowing us to use `core_temp` to reference the value in our macro:
 
-    {%set core_temp = printer["temperature_sensor pico_temp"].temperature %}
+```jinja
+{% set core_temp = printer["temperature_sensor pico_temp"].temperature %}
+```
 
 Then we can use that as follows:
 
-    M117 "Pico: {core_temp}"
+```gcode
+M117 "Pico: {core_temp}"
+```
 
 or:
 
-    {% if core_temp > 60 %}
-        M117 Too hot!!!
-    {% endif %}
+```jinja
+{% if core_temp > 60 %}
+    M117 Too hot!!!
+{% endif %}
+```
 
 [Klipper Docs](https://www.klipper3d.org/Status_Reference.html#temperature_sensor)
 
@@ -257,11 +293,13 @@ or:
 
 Many Pico boards (such as the QTPY varients) have a built-in RGB LED. Then pin used for this may vary between models, but the configuration format is the same.
 
-    [neopixel pico_led]
-    pin: my_pico: gpio12
-    initial_RED: 1.0
-    initial_GREEN: 1.0
-    initial_BLUE: 1.0
+```ini
+[neopixel pico_led]
+pin: my_pico: gpio12
+initial_RED: 1.0
+initial_GREEN: 1.0
+initial_BLUE: 1.0
+```
 
 Note how the pin is assigned.
 
@@ -275,13 +313,17 @@ The `initial_RED/GREEN/BLUE` settings define the color/brightness that should be
 
 Neopixels are controlled using the `SET_LED` command:
 
-    SET_LED LED=pico_led RED=1 GREEN=0 BLUE=1
+```properties
+SET_LED LED=pico_led RED=1 GREEN=0 BLUE=1
+```
 
 This example will turn the LED purple.
 
 To turn it off:
 
-    SET_LED LED=pico_led RED=0 GREEN=0 BLUE=0
+```properties
+SET_LED LED=pico_led RED=0 GREEN=0 BLUE=0
+```
 
 [Klipper Docs](https://www.klipper3d.org/G-Codes.html#set_led)
 
@@ -291,8 +333,10 @@ The QTPY boards (and perhaps other RP2040 boards with LEDs) require you to also 
 
 This is done as follows:
 
-    [static_digital_output enable_pico_led]
-    pins: my_pico: gpio11
+```ini
+[static_digital_output enable_pico_led]
+pins: my_pico: gpio11
+```
 
 This will tell Klipper to pull that pin high when the mcu connects. `gpio11` is the pin used for this `neopixel_enable` function on the SeeedStudio and Adafruit QTPY RP2040 boards.
 
@@ -306,10 +350,12 @@ I don't believe this feature is available on the Adafruit variant.
 
 To use this from Klipper, include the following in your `printer.cfg` file:
 
-    [output_pin _my_pico_status]
-    pin: my_pico: gpio25
-    value: 1
-    shutdown_value: 0
+```ini
+[output_pin _my_pico_status]
+pin: my_pico: gpio25
+value: 1
+shutdown_value: 0
+```
 
 Note that in this case I'm choosing to name the component with an underscore at the start: `_my_pico_status` to prevent it from showing up in the UI.
 
@@ -321,13 +367,17 @@ Note that in this case I'm choosing to name the component with an underscore at 
 
 The `ouput_pin` is controlled with the `SET_PIN` command:
 
-    SET_PIN PIN=_my_pico_status VALUE=0.5
+```properties
+SET_PIN PIN=_my_pico_status VALUE=0.5
+```
 
 This example would set the brightness to 50%.
 
 To turn it off:
 
-    SET_PIN PIN=_my_pico_status VALUE=0
+```properties
+SET_PIN PIN=_my_pico_status VALUE=0
+```
 
 [Klipper Docs](https://www.klipper3d.org/G-Codes.html#set_pin)
 
@@ -341,40 +391,44 @@ For example, let's put all the configurations we just did into a new `pico.cfg` 
 
 The `pico.cfg` file:
 
-    [mcu my_pico]
-    serial: /dev/serial/by-id/usb-Klipper_rp2040_E660C062135C6A24-if00
+```ini
+[mcu my_pico]
+serial: /dev/serial/by-id/usb-Klipper_rp2040_E660C062135C6A24-if00
 
-    [temperature_sensor pico_temp]
-    sensor_type: temperature_mcu
-    sensor_mcu: my_pico
-    min_temp: 0
-    max_temp: 100
+[temperature_sensor pico_temp]
+sensor_type: temperature_mcu
+sensor_mcu: my_pico
+min_temp: 0
+max_temp: 100
 
-    [neopixel pico_led]
-    pin: my_pico: gpio12
-    initial_RED: 1.0
-    initial_GREEN: 1.0
-    initial_BLUE: 1.0
+[neopixel pico_led]
+pin: my_pico: gpio12
+initial_RED: 1.0
+initial_GREEN: 1.0
+initial_BLUE: 1.0
 
-    [static_digital_output enable_pico_led]
-    pins: my_pico: gpio11
+[static_digital_output enable_pico_led]
+pins: my_pico: gpio11
 
-    [output_pin _my_pico_status]
-    pin: my_pico: gpio25
-    value: 1
-    shutdown_value: 0
+[output_pin _my_pico_status]
+pin: my_pico: gpio25
+value: 1
+shutdown_value: 0
 
-    [gcode_macro GET_PICO_TEMP]
-    gcode:
-        {%set core_temp = printer["temperature_sensor pico_temp"].temperature %}
-        M117 "Pico: {core_temp}"
-        {% if core_temp > 60 %}
-            M117 Too hot!!!
-        {% endif %}
+[gcode_macro GET_PICO_TEMP]
+gcode:
+    {%set core_temp = printer["temperature_sensor pico_temp"].temperature %}
+    M117 "Pico: {core_temp}"
+    {% if core_temp > 60 %}
+        M117 Too hot!!!
+    {% endif %}
+```
 
 We can save that file in the same directory as the `printer.cfg` file and then include it with the following line in the `printer.cfg` file:
 
-    [include pico.cfg]
+```ini
+[include pico.cfg]
+```
 
 For more information:
 
@@ -387,3 +441,7 @@ For more information:
 [Config Reference](https://www.klipper3d.org/Config_Reference.html#mcu-my_extra_mcu)
 
 [Pico + ADXL Accelerometer Build Guide](https://klipper.discourse.group/t/raspberry-pi-pico-adxl345-portable-resonance-measurement/1757)
+
+```
+
+```

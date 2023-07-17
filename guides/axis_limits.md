@@ -60,7 +60,9 @@ For our purposes we can use the values on the "toolhead" line to represent our *
 
 Ex:
 
+```log
     Recv: // toolhead: X:8.338078 Y:-3.123175 Z:233.347878 E:0.000000
+```
 
 ### Calibration steps
 

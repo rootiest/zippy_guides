@@ -63,13 +63,17 @@ I'm going to reference the macros in [my other guide](macros.md) for this as the
 
 OK, so the first line of the `START_PRINT` macro:
 
-    {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+```jinja
+{% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+```
 
 This is a conditional statement. As such it uses the `{% %}` wrapper. "Conditional statement" is [a mathematical term](https://www.cuemath.com/data/conditional-statement/). To simplify, when the bit of code involves comparing or setting a value with another value, that is a conditional statement.
 
 Let's look at the other type:
 
-    M140 S{BED_TEMP}
+```gcode
+M140 S{BED_TEMP}
+```
 
 OK so in this case, we have a normal gcode command, but we also are using those squiggly brackets again, this time without the percent symbols.
 
@@ -77,19 +81,25 @@ What is the difference? Well this time, we are not comparing or testing any valu
 
 So as you may know from the `START_PRINT` guide (and as I cover in more detail below) that first line:
 
-    {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+```jinja
+{% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+```
 
 was setting a local variable called `BED_TEMP` to a value.
 
 So in this line:
 
-    M140 S{BED_TEMP}
+```gcode
+M140 S{BED_TEMP}
+```
 
 we are using that value. This: `{BED_TEMP}` is processed by the gcode as the actual value assigned to that variable.
 
 We could do this:
 
-    M140 S{BED_TEMP + 5}
+```gcode
+M140 S{BED_TEMP + 5}
+```
 
 and the gcode processor would see the equivalent of 5 more than that value.
 
@@ -97,7 +107,9 @@ So we use the `{ }` brackets to represent a value. We don't even need to use var
 
 This:
 
-    M140 S{25 * 3 - 2}
+```gcode
+M140 S{25 * 3 - 2}
+```
 
 is also perfectly valid.
 
@@ -121,7 +133,9 @@ Parameters are a sort of variable that is set by the initial call to the macro.
 
 When you run:
 
-    START_PRINT BED_TEMP=100 EXTRUDER_TEMP=250
+```properties
+START_PRINT BED_TEMP=100 EXTRUDER_TEMP=250
+```
 
 The `BED_TEMP` and `EXTRUDER_TEMP` are parameters. They are variables that are being set to a value during the call to `START_PRINT`.
 
@@ -131,7 +145,9 @@ Let's continue with the above example, using [this START_PRINT macro](macros.md#
 
 So the first line in that macro shows how we traditionally work with parameters. Let's break it down:
 
-    {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+```jinja
+{% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+```
 
 > Note: This example can be a little confusing as it uses the same name for [the local variable](#local-variables) and [the parameter](#parameters). They are two distinct variables that can have completely different values/names. Just keep this in mind.
 
@@ -143,13 +159,17 @@ See the section below on [local variables](#local-variables).
 
 Much like other variables, we do not need to "create" parameters. You are welcome to run:
 
-    START_PRINT BED_TEMP=100 EXTRUDER_TEMP=250 PUFF=420
+```properties
+START_PRINT BED_TEMP=100 EXTRUDER_TEMP=250 PUFF=420
+```
 
 That last `PUFF` parameter is **_not_** invalid, it will just be ignored if our macro doesn't address it by using `params.PUFF` somewhere within the macro.
 
 For now let's look at the rest of our line:
 
-    params.BED_TEMP|default(60)|float
+```properties
+params.BED_TEMP|default(60)|float
+``````
 
 So first off, we are telling Klipper to set our local variable to the value of `params.BED_TEMP`. That is the parameter we have been referring to previously.
 
@@ -189,21 +209,29 @@ But it does serve a purpose. It will force our local variable to the type we spe
 
 So if you have this:
 
-    params.BED_TEMP|default(60)|float
+```properties
+params.BED_TEMP|default(60)|float
+```
 
 and you try to run this:
 
-    START_PRINT BED_TEMP=your_mom
+```properties
+START_PRINT BED_TEMP=your_mom
+```
 
 Klipper will be unable to convert that to a float and instead our local variable will be assigned a value of 0.
 
 But let's say you have this:
 
-    params.BED_TEMP|default(60)|int
+```properties
+params.BED_TEMP|default(60)|int
+```
 
 and you try to run this:
 
-    START_PRINT BED_TEMP=42.69
+```properties
+START_PRINT BED_TEMP=42.69
+```
 
 Klipper _can_ easily convert a float to an integer, and the result will be our local variable getting set to 43.
 
@@ -215,7 +243,9 @@ That is not to say you can't work with parameters directly, it's just generally 
 
 This:
 
-    M140 S{params.BED_TEMP}
+```gcode
+M140 S{params.BED_TEMP}
+```
 
 is also completely valid.
 
@@ -227,7 +257,9 @@ A local variable is one that is defined in the macro. These can only be used fro
 
 This line:
 
-    {% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+```jinja
+{% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+```
 
 is setting a local variable to the value of a parameter.
 
@@ -237,17 +269,23 @@ In this example, `params.BED_TEMP` and `BED_TEMP` are not the same thing.
 
 This is also a valid example:
 
-    {% set HOT_TUB = params.BED_TEMP|default(60)|float %}
+```jinja
+{% set HOT_TUB = params.BED_TEMP|default(60)|float %}
+```
 
 In this example, `HOT_TUB` is a local variable.
 
 Here is another, simpler example:
 
-    {% set my_variable = 42.69 %}
+```jinja
+{% set my_variable = 42.69 %}
+```
 
 In this example, `my_variable` is the local variable and:
 
-    M140 S{my_variable}
+```gcode
+M140 S{my_variable}
+```
 
 would set the bed temp to 42.69.
 
@@ -267,23 +305,29 @@ The way we go about this may feel rather clunky at first, but it's actually fair
 
 Let's look at an example:
 
-    [gcode_macro TEST_MACRO]
-    variable_test: 0
-    gcode:
-        {% set my_test = params.SAMPLES|default(0)|int %}
-        SET_GCODE_VARIABLE MACRO=TEST_MACRO VARIABLE=test VALUE={my_test}
+```ini
+[gcode_macro TEST_MACRO]
+variable_test: 0
+gcode:
+    {% set my_test = params.SAMPLES|default(0)|int %}
+    SET_GCODE_VARIABLE MACRO=TEST_MACRO VARIABLE=test VALUE={my_test}
+```
 
 OK, so what are we doing here?
 
 This first part:
 
-    variable_test: 0
+```properties
+variable_test: 0
+```
 
 is defining the gcode variable. This line must always start with `variable_` and the rest of it is the name of the variable.
 
 So:
 
-    variable_boop_beep_boop: 0
+```properties
+variable_boop_beep_boop: 0
+```
 
 would create a variable named `boop_beep_boop`
 
@@ -295,19 +339,25 @@ Now this macro "owns" that variable and we can reference or set it from another 
 
 This line:
 
-    {% set my_test = params.SAMPLES|default(0)|int %}
+```jinja
+{% set my_test = params.SAMPLES|default(0)|int %}
+```
 
 is just setting a local variable from a parameter (see the previous sections)
 
 This line:
 
-    SET_GCODE_VARIABLE MACRO=TEST_MACRO VARIABLE=test VALUE={my_test}
+```properties
+SET_GCODE_VARIABLE MACRO=TEST_MACRO VARIABLE=test VALUE={my_test}
+```
 
 sets the value to our gcode variable.
 
 Let's break it down:
 
-    SET_GCODE_VARIABLE
+```properties
+SET_GCODE_VARIABLE
+```
 
 is a gcode command. Kind of like a native Klipper "macro".
 
@@ -315,15 +365,21 @@ is a gcode command. Kind of like a native Klipper "macro".
 
 The rest are actually parameters being sent to that gcode command.
 
-    MACRO=TEST_MACRO
+```properties
+MACRO=TEST_MACRO
+```
 
 tells it the variable we are setting is "owned" by the `TEST_MACRO` macro.
 
-    VARIABLE=test
+```properties
+VARIABLE=test
+```
 
 tells it the variable we are setting is named `test` (variable_test)
 
-    VALUE={my_test}
+```properties
+VALUE={my_test}
+```
 
 tells it to set that variable's value to the value of our local variable, `my_test`.
 
@@ -341,10 +397,12 @@ Let's look at an example:
 
 This is a simple macro that reads the gcode variable we created/set previously and outputs its value to the display.
 
-    [gcode_macro]
-    gcode:
-        {% set my_variable = printer["gcode_macro TEST_MACRO"].test %}
-        M117 {my_variable}
+```ini
+[gcode_macro]
+gcode:
+    {% set my_variable = printer["gcode_macro TEST_MACRO"].test %}
+    M117 {my_variable}
+```
 
 OK so most of this is pretty self-explanatory.
 
@@ -352,7 +410,9 @@ It's just a basic macro, and the `M117` command should be familiar here.
 
 The important line is:
 
-    {% set my_variable = printer["gcode_macro TEST_MACRO"].test %}
+```jinja
+{% set my_variable = printer["gcode_macro TEST_MACRO"].test %}
+```
 
 The basic format should look pretty familiar as well. If not, go back and read the previous sections on parameters and local variables.
 
@@ -360,7 +420,9 @@ So we are once again setting a value to a local variable.
 
 This time the value we are setting is:
 
-    printer["gcode_macro TEST_MACRO"].test
+```properties
+printer["gcode_macro TEST_MACRO"].test
+```
 
 So what does that mean?
 
@@ -370,7 +432,9 @@ This is a _very_ extensive topic, you can see all the possible values at [this K
 
 We are going to use this to access our gcode variable's value.
 
-    printer["gcode_macro TEST_MACRO"]
+```properties
+printer["gcode_macro TEST_MACRO"]
+```
 
 refers to the macro that "owns" the variable.
 
@@ -382,7 +446,9 @@ Then the `.test` is saying we want the variable named `test` that's part of that
 
 So altogether:
 
-    printer["gcode_macro TEST_MACRO"].test
+```properties
+printer["gcode_macro TEST_MACRO"].test
+```
 
 is equal to the value assigned to the variable named `test` that is "owned" by the gcode_macro named `TEST_MACRO`.
 
@@ -402,8 +468,10 @@ They require that you have a `[save_variables]` config section defined.
 
 An common example would be something like this:
 
-    [save_variables]
-    filename: ~/printer_data/config/variables.cfg
+```ini
+[save_variables]
+filename: ~/printer_data/config/variables.cfg
+```
 
 This is necessary for the same reason you should not overuse this kind of variable:
 
@@ -419,17 +487,21 @@ OK, so how do we use them?
 
 Let's look at an example:
 
-    [gcode_macro TEST_MACRO]
-    variable_test: 0
-    gcode:
-        {% set my_test = params.SAMPLES|default(0)|int %}
-        SAVE_VARIABLE VARIABLE=test VALUE={my_test}
+```ini
+[gcode_macro TEST_MACRO]
+variable_test: 0
+gcode:
+    {% set my_test = params.SAMPLES|default(0)|int %}
+    SAVE_VARIABLE VARIABLE=test VALUE={my_test}
+```
 
 Most of this should be pretty self-explanatory if you have read through the previous sections of this guide.
 
 The important line here is:
 
-    SAVE_VARIABLE VARIABLE=test VALUE={my_test}
+```properties
+SAVE_VARIABLE VARIABLE=test VALUE={my_test}
+```
 
 This tells Klipper to save a variable named `test` and test it's value to the value of our local variable named `my_test`.
 
@@ -439,7 +511,9 @@ Like the `SET_GCODE_VARIABLE` command, this one can be used from any macro, or e
 
 This will result in Klipper adding (or editing if it already exists) a line like this:
 
-    test = 0
+```properties
+test = 0
+```
 
 > That `0` will be whatever value we set to `test` with the command.
 
@@ -447,33 +521,45 @@ So then how do we read/use the persistent variable?
 
 Let's look at a macro:
 
-    [gcode_macro]
-    gcode:
-        {% set svv = printer.save_variables.variables %}
-        {% set my_variable = svv.test %}
-        M117 {my_variable}
+```ini
+[gcode_macro]
+gcode:
+    {% set svv = printer.save_variables.variables %}
+    {% set my_variable = svv.test %}
+    M117 {my_variable}
+```
 
 OK so let's break this down:
 
 First we have this line:
 
-    {% set svv = printer.save_variables.variables %}
+```jinja
+{% set svv = printer.save_variables.variables %}
+```
 
 This is just a "shortcut". Nobody wants to type out (or read) `printer.save_variables.variables.test` every time we refer to that saved variable, so we use this shortcut to shorten:
 
-    printer.save_variables.variables
+```properties
+printer.save_variables.variables
+```
 
 to:
 
-    svv
+```properties
+svv
+```
 
 That means this:
 
-    printer.save_variables.variables.test
+```properties
+printer.save_variables.variables.test
+```
 
 and this:
 
-    svv.test
+```properties
+svv.test
+```
 
 are the same thing.
 
@@ -481,7 +567,9 @@ And they both refer to the persistent variable we saved previously.
 
 So then:
 
-    {% set my_variable = svv.test %}
+```jinja
+{% set my_variable = svv.test %}
+```
 
 is setting a local variable called `my_variable` to that saved value.
 
@@ -519,24 +607,30 @@ Delayed Gcode macros allow you to run a macro after a delay. This delay can be s
 
 These are configured as follows:
 
-    [delayed_gcode my_delayed_gcode]
-    gcode:
-        MY_MACRO
-    initial_duration: 10.0
+```ini
+[delayed_gcode my_delayed_gcode]
+gcode:
+    MY_MACRO
+initial_duration: 10.0
+```
 
 In this example, Klipper will execute the macro named `MY_MACRO` 10 seconds after startup.
 
 Alternatively, we could use it like so:
 
-    [delayed_gcode my_delayed_gcode]
-    gcode:
-        MY_MACRO
+```ini
+[delayed_gcode my_delayed_gcode]
+gcode:
+    MY_MACRO
+```
 
 This delayed_gcode will not run at startup.
 
 We can then initiate it from another macro like so:
 
-    UPDATE_DELAYED_GCODE ID=my_delayed_gcode DURATION=300
+```properties
+UPDATE_DELAYED_GCODE ID=my_delayed_gcode DURATION=300
+```
 
 This will tell Klipper to execute the delayed_gcode (and then our `MY_MACRO` macro) 5 minutes after the `UPDATE_DELAYED_GCODE` command was run.
 
@@ -556,15 +650,21 @@ To do so we use:
 
 For example, to include a `pico.cfg` file stored in the same directory as `printer.cfg` we would use the following:
 
-    [include pico.cfg]
+```ini
+[include pico.cfg]
+```
 
 If that file is in a subdirectory called `macros` we would use this:
 
-    [include macros/pico.cfg]
+```ini
+[include macros/pico.cfg]
+```
 
 To include **_every_** file in the `macros` subdirectory, we can use this:
 
-    [include macros/*.cfg]
+```ini
+[include macros/*.cfg]
+```
 
 Now let's assume your `printer.cfg` file is located in `~/printer_data/config` but we want to include a `pico.cfg` file that's in the `~` directory.
 
@@ -572,11 +672,15 @@ We have two options.
 
 We can use the absolute path:
 
-    [include ~/pico.cfg]
+```ini
+[include ~/pico.cfg]
+```
 
 or we can use the relative path:
 
-    [include ../../pico.cfg]
+```ini
+[include ../../pico.cfg]
+```
 
 Two periods `..` means "go up 1 directory level" so we can use those to reference the directory _above_ the current one.
 

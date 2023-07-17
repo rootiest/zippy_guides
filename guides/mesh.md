@@ -55,25 +55,29 @@ The simplest way to explain this is to use an example. So I will include a snipp
 
 ### Sample values
 
-    [stepper_x]
-    position_min: -5
-    position_endstop: -5
-    position_max: 250
+```ini
+[stepper_x]
+position_min: -5
+position_endstop: -5
+position_max: 250
 
-    [stepper_y]
-    position_min: -5
-    position_endstop: -5
-    position_max: 200
+[stepper_y]
+position_min: -5
+position_endstop: -5
+position_max: 200
 
-    [bltouch]
-    x_offset: -50
-    y_offset: -10
+[bltouch]
+x_offset: -50
+y_offset: -10
+```
 
 In this example, our mesh_min and mesh_max values would be:
 
-    [bed_mesh]
-    mesh_min: 0, 0
-    mesh_max: 199, 189
+```ini
+[bed_mesh]
+mesh_min: 0, 0
+mesh_max: 199, 189
+```
 
 ## Example Diagram
 
@@ -135,7 +139,11 @@ This can be helpful if you'd like to avoid doing the math yourself as it will di
 
 To use this macro, download the `GET_PROBE_LIMITS.cfg` file to your `~/printer_data/config` directory and add the following near the top of your `printer.cfg` file:
 
-    [include GET_PROBE_LIMITS.cfg]
+```ini
+[include GET_PROBE_LIMITS.cfg]
+```
+
+Then restart Klipper.
 
 Credit to [u/davidosmithII](https://www.reddit.com/user/davidosmithII/) who came up with the idea and created the original macro to do it.
 
@@ -151,17 +159,19 @@ In order to use this, we need to set up a `screws_tilt_adjust` section in the co
 
 Here is an example:
 
-    # Bed screw adjustment
-    [screws_tilt_adjust]
-    screw1: 83,43
-    screw1_name: front left screw
-    screw2: 250,43
-    screw2_name: front right screw
-    screw3: 250,210
-    screw3_name: rear right screw
-    screw4: 83,210
-    screw4_name: rear left screw
-    screw_thread: CW-M4
+```ini
+# Bed screw adjustment
+[screws_tilt_adjust]
+screw1: 83,43
+screw1_name: front left screw
+screw2: 250,43
+screw2_name: front right screw
+screw3: 250,210
+screw3_name: rear right screw
+screw4: 83,210
+screw4_name: rear left screw
+screw_thread: CW-M4
+```
 
 The `screw_thread` is the threading used on your bed-adjustment screws. Typical Ender 3 style beds use M4 threading and turn clockwise to decrease the bed height. M3-clockwise is also somewhat common.
 
@@ -196,3 +206,7 @@ You will need to repeat this process several times. I recommend repeating until 
 [Bed Mesh](https://www.klipper3d.org/Bed_Mesh.html)
 
 [Config Reference](https://www.klipper3d.org/Config_Reference.html#bed_mesh)
+
+```
+
+```

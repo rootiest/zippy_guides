@@ -175,8 +175,10 @@ It's going to be very similar to the compiling/flashing process [described in th
 
 Run the following commands via ssh to your Klipper host:
 
-    cd ~/klipper
-    make menuconfig
+```shell
+cd ~/klipper
+make menuconfig
+```
 
 This will open a screen where we can configure a Klipper firmware.
 
@@ -192,7 +194,9 @@ Press `y` to save changes.
 
 Now run:
 
-    make
+```shell
+make
+```
 
 This will take a moment, and once complete it will spit out a `klipper.u2f` file in `~/klipper/out`
 
@@ -208,7 +212,9 @@ Or, you can put the jumper on with the board powered off and you will not need t
 
 You can now try to run the following command:
 
-    sudo mount /dev/sda1 /mnt
+```shell
+sudo mount /dev/sda1 /mnt
+```
 
 If putting the SKR-Pico into flash-mode was unsuccessful, it won't show up as a mountable storage device.
 
@@ -216,7 +222,9 @@ If you have other external storage devices the `sda1` part may be different.
 
 You can use the following command to see all the available storage devices:
 
-    sudo fdisk -l
+```shell
+sudo fdisk -l
+```
 
 Match your Pico with the correct `/dev/sda#` address and modify the `mount` command as necessary.
 
@@ -224,7 +232,9 @@ When you have successfully mounted the storage there will be no feedback or erro
 
 You can test it by running:
 
-    ls /mnt
+```shell
+ls /mnt
+```
 
 The storage should contain a couple of files:
 
@@ -235,7 +245,9 @@ If the `ls` command returns those, you are ready to flash!
 
 Run the following command:
 
-    sudo cp out/klipper.uf2 /mnt
+```shell
+sudo cp out/klipper.uf2 /mnt
+```
 
 This will copy the firmware image we compiled earlier onto the SKR-Pico's storage and it will be flashed automatically.
 
@@ -257,13 +269,17 @@ At this point I recommend rebooting the host/pi. I don't know that it's necessar
 
 Once it comes back up, make sure the SKR-Pico is powered on and run the following command:
 
-    sudo ip link set up can0 type can bitrate 500000
+```shell
+sudo ip link set up can0 type can bitrate 500000
+```
 
 This will bring up the CAN network.
 
 Then run:
 
-    ~/klippy-env/bin/python ~/klipper/scripts/canbus_query.py can0
+```shell
+~/klippy-env/bin/python ~/klipper/scripts/canbus_query.py can0
+```
 
 This command will list all the detected CAN devices on that CAN network. You should see the ID for the SKR-Pico.
 
@@ -271,13 +287,17 @@ Write down/copy that ID, we will need it in our `printer.cfg` file.
 
 In that file, you will need to change:
 
-    [mcu]
-    serial: /dev/serial/by-id/usb-Klipper_rp2040_45503571270BCFD8-if00
+```ini
+[mcu]
+serial: /dev/serial/by-id/usb-Klipper_rp2040_45503571270BCFD8-if00
+```
 
 to:
 
-    [mcu]
-    canbus_uuid: 41674b3a9356
+```ini
+[mcu]
+canbus_uuid: 41674b3a9356
+```
 
 NOTE: Both your IDs will be different than those shown above, they are unique to your board. I just used mine as an example.
 
@@ -291,15 +311,19 @@ This can be solved by the following process.
 
 Run:
 
-    sudo rm /etc/network/interfaces.d/can0
-    sudo nano /etc/network/interfaces.d/can0
+```shell
+sudo rm /etc/network/interfaces.d/can0
+sudo nano /etc/network/interfaces.d/can0
+```
 
 Enter (paste) the following into the editor:
 
-    allow-hotplug can0
-    iface can0 can static
-        bitrate 500000
-        up ifconfig $IFACE txqueuelen 128
+```text
+allow-hotplug can0
+iface can0 can static
+    bitrate 500000
+    up ifconfig $IFACE txqueuelen 128
+```
 
 Press `Ctrl+X` to exit the editor, followed by `Y` and `Enter` to save changes. Then reboot again to be sure.
 
@@ -336,7 +360,9 @@ Boot back up and power everything on.
 
 Run this command again:
 
-    ~/klippy-env/bin/python ~/klipper/scripts/canbus_query.py can0
+```shell
+~/klippy-env/bin/python ~/klipper/scripts/canbus_query.py can0
+```
 
 You should see two uuid's listed.
 
@@ -344,8 +370,10 @@ The SKR-Pico's ID which we already configured, and an additional one. This addit
 
 You can configure it the same as we did the main printer board. For my EBB it looks like this:
 
-    [mcu EBBCan]
-    canbus_uuid: e8d3e3388393
+```ini
+[mcu EBBCan]
+canbus_uuid: e8d3e3388393
+```
 
 Update your config with that canbus ID and you should be good to go.
 
@@ -371,52 +399,56 @@ Just use the pins assigned to the extruder on the pico instead for stepper_z1:
 
 In my case that meant changing:
 
-    [extruder]
-    step_pin: gpio14
-    dir_pin: !gpio13
-    enable_pin: !gpio15
-    microsteps: 16
-    rotation_distance: 33.500
-    nozzle_diameter: 0.4
-    filament_diameter: 1.75
-    heater_pin: gpio23
-    sensor_type: EPCOS 100K B57560G104F
-    sensor_pin: gpio27
-    control: pid
-    pid_Kp: 22.2
-    pid_Ki: 1.08
-    pid_Kd: 114
-    min_temp: 0
-    max_temp: 300
-    max_extrude_cross_section:2
+```ini
+[extruder]
+step_pin: gpio14
+dir_pin: !gpio13
+enable_pin: !gpio15
+microsteps: 16
+rotation_distance: 33.500
+nozzle_diameter: 0.4
+filament_diameter: 1.75
+heater_pin: gpio23
+sensor_type: EPCOS 100K B57560G104F
+sensor_pin: gpio27
+control: pid
+pid_Kp: 22.2
+pid_Ki: 1.08
+pid_Kd: 114
+min_temp: 0
+max_temp: 300
+max_extrude_cross_section:2
 
-    [tmc2209 extruder]
-    uart_pin: gpio9
-    tx_pin: gpio8
-    uart_address: 3
-    run_current: 0.650
-    hold_current: 0.500
-    stealthchop_threshold: 999999
+[tmc2209 extruder]
+uart_pin: gpio9
+tx_pin: gpio8
+uart_address: 3
+run_current: 0.650
+hold_current: 0.500
+stealthchop_threshold: 999999
+```
 
 to:
 
-    [stepper_z1]
-    step_pin: gpio14
-    dir_pin: gpio13
-    enable_pin: !gpio15
-    microsteps: 16
-    rotation_distance: 8
-    # endstop_pin: ^gpio25
-    # position_endstop: 0
-    endstop_pin: probe:z_virtual_endstop
+```ini
+[stepper_z1]
+step_pin: gpio14
+dir_pin: gpio13
+enable_pin: !gpio15
+microsteps: 16
+rotation_distance: 8
+# endstop_pin: ^gpio25
+# position_endstop: 0
+endstop_pin: probe:z_virtual_endstop
 
-    [tmc2209 stepper_z1]
-    uart_pin: gpio9
-    tx_pin: gpio8
-    uart_address: 3
-    run_current: 0.580
-    hold_current: 0.500
-    stealthchop_threshold: 999999
+[tmc2209 stepper_z1]
+uart_pin: gpio9
+tx_pin: gpio8
+uart_address: 3
+run_current: 0.580
+hold_current: 0.500
+stealthchop_threshold: 999999
+```
 
 NOTE: We are just copying the pins from the `[extruder]` config to a `[stepper_z1]` config and removing the extruder-specific lines.
 
@@ -428,9 +460,11 @@ We also have a thermistor connector which can be used with a cheap, readily-avai
 
 Here is my config for that:
 
-    [temperature_sensor steppers]
-    sensor_type: EPCOS 100K B57560G104F
-    sensor_pin: gpio27
+```ini
+[temperature_sensor steppers]
+sensor_type: EPCOS 100K B57560G104F
+sensor_pin: gpio27
+```
 
 You can use it for whatever you like though, consider it a free temperature sensor!
 

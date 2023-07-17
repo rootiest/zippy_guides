@@ -17,9 +17,9 @@
  along with zippy_guides.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-![header](resources/pretty_header.png)
-
 # Guides For Klipper Things and Stuff
+
+![header](resources/pretty_header.png)
 
 [![GitHub Super-Linter](https://github.com/rootiest/zippy_guides/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
@@ -44,6 +44,10 @@ Create and use macros for your `START_PRINT` and `END_PRINT` gcode commands.
 Learn more advanced techniques you can use in your macros.
 
 Covers parameters, variables and types, gcode_variables, persistant_variables, the printer object, delayed_gcode, and more.
+
+## [Using Includes to Organize Your Config](guides/includes.md)
+
+Learn how to use includes to organize your config and share code between multiple configs.
 
 ## [USB Pico Setup](guides/usb-pico.md)
 
