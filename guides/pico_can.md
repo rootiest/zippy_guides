@@ -307,16 +307,16 @@ Save the changes and at this point you should be able to boot your printer with 
 
 I found that I had trouble sometimes bringing the CAN network back up after a `FIRMWARE_RESTART`
 
-This can be solved by the following process.
+This can be solved by the following process. These instructions apply for Linux distributions using legacy network configuration. A second set of instructions for distributions using Netplan follows. 
 
-Run:
+For legacy network configuration run:
 
 ```shell
 sudo rm /etc/network/interfaces.d/can0
 sudo nano /etc/network/interfaces.d/can0
 ```
 
-Enter (paste) the following into the editor:
+and then (paste) the following into the editor:
 
 ```text
 allow-hotplug can0
@@ -328,6 +328,41 @@ iface can0 can static
 Press `Ctrl+X` to exit the editor, followed by `Y` and `Enter` to save changes. Then reboot again to be sure.
 
 After making this change I had no issues starting the printer no matter how it was shut down.
+
+For systems using Netplan (this is probably you if the directory /etc/network/interfaces.d/ does not exist or if the directory is empty, start by running: 
+
+```shell
+sudo nano /etc/systemd/network/80-can.network
+```
+
+and then (paste) the following into the editor:
+
+```text
+[Match]
+Name=can*
+
+[CAN]
+BitRate=500K
+```
+
+Use the same value for BitRate that you used when compiling your firmware (500K in this guide). Press `Ctrl+X` to exit the editor, followed by `Y` and `Enter` to save changes. You should end up back at the command prompt. Enable and start systemd-networkd with the command: 
+
+```shell
+sudo systemctl enable systemd-networkd --now
+```
+
+You may also need to set the value for txquelelen for this to work as desired. To do this, create another file with command:
+
+```shell
+sudo nano /etc/udev/rules.d/99-can-txqueuelen.rules
+```
+
+Paste the following into the file and do the same Ctrl+X, 'y', 'Enter' sequence that you did to create the previous file. Reboot your machine. When I did this it did take much longer than usual for my Klipper host to come back online than usual. Be patient. When the machine pops back online you can check that the can net is up by running:
+
+```shell
+ip a
+```
+The credit for these instructions goes to Esoterical on the Voron Discord. Blame for transcribing them here goes to Wayne Manion. 
 
 ## Congrats on your first CANbus device
 
