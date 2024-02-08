@@ -357,7 +357,13 @@ You may also need to set the value for txquelelen for this to work as desired. T
 sudo nano /etc/udev/rules.d/99-can-txqueuelen.rules
 ```
 
-Paste the following into the file and do the same Ctrl+X, 'y', 'Enter' sequence that you did to create the previous file. Reboot your machine. When I did this it did take much longer than usual for my Klipper host to come back online than usual. Be patient. When the machine pops back online you can check that the can net is up by running:
+Paste the following into the file and do the same Ctrl+X, 'y', 'Enter' sequence that you did to create the previous file.
+
+```shell
+SUBSYSTEM=="net", ACTION=="add|change", KERNEL=="can*", ATTR{tx_queue_len}="128"
+```
+
+Reboot your machine. When I did this it did take much longer than usual for my Klipper host to come back online than usual. Be patient. When the machine pops back online you can check that the can net is up by running:
 
 ```shell
 ip a
