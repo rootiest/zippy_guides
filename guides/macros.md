@@ -128,8 +128,7 @@ start_print EXTRUDER_TEMP={first_layer_temperature[initial_extruder]} BED_TEMP={
 
 > Note: PrusaSlicer recently changed their placeholder/variable formatting. The above applies to PrusaSlicer 2.5.0. For previous versions the SuperSlicer example below should be compatible.
 >
-> Note: It is recommended to enable the "Label Objects" option in the PrusaSlicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects".
-> This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
 >
 > For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
@@ -147,9 +146,7 @@ start_print BED_TEMP={first_layer_bed_temperature} EXTRUDER_TEMP={first_layer_te
 >
 > Otherwise: the code snippet provided above will function correctly with the slicer still allowed to add its own commands.
 >
-> Note: It is recommended to enable the "Label Objects" option in the SuperSlicer settings.
-> This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects".
-> This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
 >
 > For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
@@ -193,9 +190,9 @@ While more advanced, this feature gives you far more control over the behavior o
 
 If you are using SuperSlicer and comfortable with adding the additional commands to your macro then I would recommend using this feature for more granular control over your prints.
 
-> Note: See the [SuperSlicer Start G-Code](#superslicer-start-g-code) section above for more information on the "Label Objects" option and how it can be used to enable the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
 >
-> For more information, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
+> For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
 ## IdeaMaker Start G-Code
 
