@@ -145,7 +145,7 @@ To use this macro, download the `GET_PROBE_LIMITS.cfg` file to your `~/printer_d
 
 Then restart Klipper.
 
-Credit to [u/davidosmithII](https://www.reddit.com/user/davidosmithII/) who came up with the idea and created the original macro to do it.
+Credit to davidosmithII who came up with the idea and created the original macro to do it.
 
 > Now supports beacon in addition to bltouch and probe.
 
