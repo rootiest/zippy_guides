@@ -126,9 +126,11 @@ M190 S0
 start_print EXTRUDER_TEMP={first_layer_temperature[initial_extruder]} BED_TEMP={first_layer_bed_temperature[initial_extruder]}
 ```
 
+> Note: You should use the `Klipper` flavor in PrusaSlicer to get the most out of Klipper's features. This can be found in the "Printer Settings" tab under "General" and is called "G-code Flavor".
+>
 > Note: PrusaSlicer recently changed their placeholder/variable formatting. The above applies to PrusaSlicer 2.5.0. For previous versions the SuperSlicer example below should be compatible.
 >
-> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+> Note: It is recommended to enable the "Label Objects" option in the PrusaSlicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
 >
 > For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
@@ -140,13 +142,15 @@ M190 S0
 start_print BED_TEMP={first_layer_bed_temperature} EXTRUDER_TEMP={first_layer_temperature[initial_extruder] + extruder_temperature_offset[initial_extruder]} CHAMBER_TEMP={chamber_temperature}
 ```
 
+> Note: You should use the `Klipper` flavor in SuperSlicer to get the most out of Klipper's features. This can be found in the "Printer Settings" tab under "General" and is called "G-code Flavor".
+>
 > Note: In most cases you could get away with using just `{first_layer_temperature}` for the extruder temp, but the one used above is a better, more inclusive option that will account for edge cases like printers with multiple extruders while also still working perfectly for more traditional builds.
 >
 > Note: SuperSlicer also has a checkbox that will prevent the slicer from adding **_any_** start gcode automatically. This can be used to negate the need for the "dummy" `M109`/`M190` commands, but you may need to add additional gcode to your `START_PRINT` macro to ensure all the correct commands are being executed.
 >
 > Otherwise: the code snippet provided above will function correctly with the slicer still allowed to add its own commands.
 >
-> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+> Note: It is recommended to enable the "Label Objects" option in the SuperSlicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
 >
 > For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
@@ -190,7 +194,9 @@ While more advanced, this feature gives you far more control over the behavior o
 
 If you are using SuperSlicer and comfortable with adding the additional commands to your macro then I would recommend using this feature for more granular control over your prints.
 
-> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+> Note: You should use the `Klipper` flavor in SuperSlicer to get the most out of Klipper's features. This can be found in the "Printer Settings" tab under "General" and is called "G-code Flavor".
+>
+> Note: It is recommended to enable the "Label Objects" option in the SuperSlicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
 >
 > For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
@@ -214,7 +220,7 @@ start_print BED_TEMP=[bed_temperature_initial_layer_single] EXTRUDER_TEMP=[nozzl
 >
 > NOTE: Although very similar to PrusaSlicer in many ways, Orca's variable names and notation are unique. The syntax used is different than any of the other slicers shown here.
 >
-> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Process" section under the "Others" tab in the "G-code Output" section and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+> Note: It is recommended to enable the "Label Objects" option in the OrcaSlicer settings. This can be found in the "Process" section under the "Others" tab in the "G-code Output" section and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
 >
 > For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
