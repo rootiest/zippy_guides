@@ -24,8 +24,8 @@
 This guide will walk you through creating your first macros for your `START_PRINT` and `END_PRINT` gcode commands. This will allow you to use Klipper to manage your start and end procedures rather than manually adding them to your slicer.
 
 - [Creating Your First Macros](#creating-your-first-macros)
-  - [Basic START\_PRINT Macro](#basic-start_print-macro)
-  - [END\_PRINT Macro](#end_print-macro)
+  - [Basic START_PRINT Macro](#basic-start_print-macro)
+  - [END_PRINT Macro](#end_print-macro)
 - [Slicer Settings](#slicer-settings)
   - [Cura Start G-Code](#cura-start-g-code)
   - [PrusaSlicer Start G-Code](#prusaslicer-start-g-code)
@@ -34,14 +34,15 @@ This guide will walk you through creating your first macros for your `START_PRIN
   - [IdeaMaker Start G-Code](#ideamaker-start-g-code)
   - [OrcaSlicer Start G-Code](#orcaslicer-start-g-code)
   - [End G-Code for all slicers](#end-g-code-for-all-slicers)
-  - [Alternative START\_PRINT macros](#alternative-start_print-macros)
-    - [START\_PRINT: I have a probe](#start_print-i-have-a-probe)
-    - [START\_PRINT: Voron TAP](#start_print-voron-tap)
+  - [Alternative START_PRINT macros](#alternative-start_print-macros)
+    - [START_PRINT: I have a probe](#start_print-i-have-a-probe)
+    - [START_PRINT: Voron TAP](#start_print-voron-tap)
   - [Aliases](#aliases)
   - [Update: PrusaSlicer and SuperSlicer](#update-prusaslicer-and-superslicer)
   - [Why use macros?](#why-use-macros)
   - [Passing Other Parameters](#passing-other-parameters)
   - [Additional Notes](#additional-notes)
+    - [Adaptive Meshing Notes](#adaptive-meshing-notes)
 
 The following are basic example macros you can use with your slicer to let Klipper manage the start and end procedures.
 
@@ -126,6 +127,10 @@ start_print EXTRUDER_TEMP={first_layer_temperature[initial_extruder]} BED_TEMP={
 ```
 
 > Note: PrusaSlicer recently changed their placeholder/variable formatting. The above applies to PrusaSlicer 2.5.0. For previous versions the SuperSlicer example below should be compatible.
+>
+> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+>
+> For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
 ## SuperSlicer Start G-Code
 
@@ -140,6 +145,10 @@ start_print BED_TEMP={first_layer_bed_temperature} EXTRUDER_TEMP={first_layer_te
 > Note: SuperSlicer also has a checkbox that will prevent the slicer from adding **_any_** start gcode automatically. This can be used to negate the need for the "dummy" `M109`/`M190` commands, but you may need to add additional gcode to your `START_PRINT` macro to ensure all the correct commands are being executed.
 >
 > Otherwise: the code snippet provided above will function correctly with the slicer still allowed to add its own commands.
+>
+> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+>
+> For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
 Additionally, the PrusaSlicer format shown in the above section is also compatible with SuperSlicer. Or they can be combined to cover every possible build scenario:
 
@@ -181,6 +190,10 @@ While more advanced, this feature gives you far more control over the behavior o
 
 If you are using SuperSlicer and comfortable with adding the additional commands to your macro then I would recommend using this feature for more granular control over your prints.
 
+> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Print Settings" tab under "Output Options" and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+>
+> For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
+
 ## IdeaMaker Start G-Code
 
 ```gcode
@@ -200,6 +213,10 @@ start_print BED_TEMP=[bed_temperature_initial_layer_single] EXTRUDER_TEMP=[nozzl
 > **IMPORTANT:** Make sure to set the gcode flavor to Klipper. Otherwise you will need to add dummy `M109`/`M190` commands like in PrusaSlicer and IdeaMaker.
 >
 > NOTE: Although very similar to PrusaSlicer in many ways, Orca's variable names and notation are unique. The syntax used is different than any of the other slicers shown here.
+>
+> Note: It is recommended to enable the "Label Objects" option in the slicer settings. This can be found in the "Process" section under the "Others" tab in the "G-code Output" section and is called "Label Objects". This will allow you to use the exclude_object feature and, if you have a probe, the adaptive meshing feature.
+>
+> For more information on adaptive meshing, see the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below.
 
 ## End G-Code for all slicers
 
@@ -235,7 +252,10 @@ gcode:
     #Z_TILT_ADJUST
 
     # If you are generating a new bed mesh:
-    BED_MESH_CALIBRATE
+    BED_MESH_CALIBRATE ADAPTIVE=1
+    ## NOTE:    The adaptive meshing feature requires exclude_object     ##
+    ##      and may require 'Label Objects' to be enabled in the slicer  ##
+    ##           To mesh without it just use BED_MESH_CALIBRATE          ##
 
     # If you are loading an existing mesh:
     #BED_MESH_PROFILE LOAD=default
@@ -245,7 +265,14 @@ gcode:
     # Set and wait for nozzle to reach printing temperature
     M109 S{EXTRUDER_TEMP}
     # Start printing!
+
+# Enable exclude_object for adaptive meshing
+[exclude_object]
 ```
+
+This macro has been updated to utilize the new adaptive meshing feature in Klipper. This is a great way to get a more accurate bed mesh more quickly at the start of a print. See the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below for more information.
+
+Make sure your Klipper version is up to date to use this feature.
 
 ### START_PRINT: Voron TAP
 
@@ -273,7 +300,10 @@ gcode:
     #Z_TILT_ADJUST
 
     # If you are generating a new bed mesh:
-    BED_MESH_CALIBRATE
+    BED_MESH_CALIBRATE ADAPTIVE=1
+    ## NOTE:    The adaptive meshing feature requires exclude_object     ##
+    ##      and may require 'Label Objects' to be enabled in the slicer  ##
+    ##           To mesh without it just use BED_MESH_CALIBRATE          ##
 
     # If you are loading an existing mesh:
     #BED_MESH_PROFILE LOAD=default
@@ -283,7 +313,14 @@ gcode:
     # Set and wait for nozzle to reach printing temperature
     M109 S{EXTRUDER_TEMP}
     # Start printing!
+
+# Enable exclude_object for adaptive meshing
+[exclude_object]
 ```
+
+This macro has been updated to utilize the new adaptive meshing feature in Klipper. This is a great way to get a more accurate bed mesh more quickly at the start of a print. See the [Adaptive Meshing Notes](#adaptive-meshing-notes) section below for more information.
+
+Make sure your Klipper version is up to date to use this feature.
 
 ## Aliases
 
@@ -313,7 +350,7 @@ However, if you wish to do something like offset temperature values using code i
 
 There are many benefits to using a start_print macro!
 
-Because the actual code in the slicer will consist of only a call to the macro, it allows you to change the start procedure without reslicing the model.
+Because the actual code in the slicer will consist of only a call to the macro, it allows you to change the start procedure without re-slicing the model.
 
 For example: Let's say you add a bltouch to your printer and you would like to perform a `BED_MESH_CALIBRATE` during your pre-print procedure. You can add that command to your macro and it will be used by all your gcode files, even older ones that were sliced before this change.
 
@@ -443,3 +480,30 @@ SET_HEATER_TEMPERATURE HEATER=chamber_heater TARGET={CHAMBER_TEMP}
 ```
 
 And again, if you don't need this or use it, the start gcode will still work perfectly with that parameter whether you use it or not.
+
+### Adaptive Meshing Notes
+
+Klipper now includes a feature called Adaptive Meshing. This is a great way to get a more accurate bed mesh more quickly at the start of a print. This functionality is the same as seen in [KAMP](https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging). In fact, it directly through [kyleisah](https://github.com/kyleisah) and [voidtrance](https://github.com/voidtrance/)'s efforts that this feature was added to Klipper itself.
+
+If you are familiar with KAMP, you will be familiar with the prerequisites for using this feature. You will need to enable the `exclude_object` configuration in your Klipper config file.
+
+This is as simple as including the following line in your `printer.cfg` file:
+
+```ini
+[exclude_object]
+```
+
+and the following lines in your `moonraker.conf` file:
+
+```ini
+[file_manager]
+enable_object_processing: True
+```
+
+Additionally, if you use a Slic3r variant, you will need to enable "Label Objects" in the slicer settings. Directions for that can be found in the relevant slicer section above for those slicers that require it.
+
+Further, the "I have a probe" and "Voron TAP" macros above have been updated to utilize this feature. No further software or macros are required to use this feature.
+
+If you currently have adaptive meshing enabled in your KAMP macros, you will need to comment out or remove the `[include ./KAMP/Adaptive_Meshing.cfg]` line from your `KAMP_Settings.cfg` file in order to use the built-in feature. The other KAMP macros will still work as expected, and there is no built-in adaptive purging feature at this time.
+
+If you prefer to continue using your KAMP adaptive meshing macros, or if you prefer not to use adaptive meshing at all, you can simply replace the `BED_MESH_CALIBRATE ADAPTIVE=1` line in the macros with `BED_MESH_CALIBRATE`. This will allow you to mesh without using the native adaptive meshing feature.
