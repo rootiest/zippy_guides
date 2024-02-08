@@ -461,7 +461,7 @@ Cura does not have an option for this that I could find.
 
 The sample `START_PRINT` macro included does not make use of that parameter. Your macro may or may not. You may not have a chamber heater.
 
-All of that is ok, even with that parameter included. If your `START_PRINT` macro doesn't use the parameter, it will just be ignored.
+All of that is OK, even with that parameter included. If your `START_PRINT` macro doesn't use the parameter, it will just be ignored.
 
 I decided it was worth including this in my guide despite many users not needing it, and it not being included in the same `START_PRINT` macro because it doesn't hurt to have it and not use it.
 
@@ -483,7 +483,10 @@ And again, if you don't need this or use it, the start gcode will still work per
 
 ### Adaptive Meshing Notes
 
-Klipper now includes a feature called Adaptive Meshing. This is a great way to get a more accurate bed mesh more quickly at the start of a print. This functionality is the same as seen in [KAMP](https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging). In fact, it directly through [kyleisah](https://github.com/kyleisah) and [voidtrance](https://github.com/voidtrance/)'s efforts that this feature was added to Klipper itself.
+Klipper now includes a feature called Adaptive Meshing.
+This is a great way to get a more accurate bed mesh more quickly at the start of a print.
+This functionality is the same as seen in [KAMP](https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging).
+In fact, it directly through [kyleisah](https://github.com/kyleisah) and [voidtrance](https://github.com/voidtrance/)'s efforts that this feature was added to Klipper itself.
 
 If you are familiar with KAMP, you will be familiar with the prerequisites for using this feature. You will need to enable the `exclude_object` configuration in your Klipper config file.
 
@@ -500,10 +503,14 @@ and the following lines in your `moonraker.conf` file:
 enable_object_processing: True
 ```
 
-Additionally, if you use a Slic3r variant, you will need to enable "Label Objects" in the slicer settings. Directions for that can be found in the relevant slicer section above for those slicers that require it.
+Additionally, if you use a Slic3r variant, you will need to enable "Label Objects" in the slicer settings.
+Directions for that can be found in the relevant slicer section above for those slicers that require it.
 
-Further, the "I have a probe" and "Voron TAP" macros above have been updated to utilize this feature. No further software or macros than what is shown here are required to use this feature.
+Further, the "I have a probe" and "Voron TAP" macros above have been updated to utilize this feature.
+No further software or macros than what is shown here are required to use this feature.
 
-If you currently have adaptive meshing enabled in your KAMP macros, you will need to comment out or remove the `[include ./KAMP/Adaptive_Meshing.cfg]` line from your `KAMP_Settings.cfg` file in order to use the built-in feature. The other KAMP macros will still work as expected, and there is no built-in adaptive purging feature at this time.
+If you currently have adaptive meshing enabled in your KAMP macros, you will need to comment out or remove the `[include ./KAMP/Adaptive_Meshing.cfg]` line from your `KAMP_Settings.cfg` file in order to use the built-in feature.
+The other KAMP macros will still work as expected, and there is no built-in adaptive purging feature at this time.
 
-If you prefer to continue using your KAMP adaptive meshing macros, or if you prefer not to use adaptive meshing at all, you can simply replace the `BED_MESH_CALIBRATE ADAPTIVE=1` line in the macros with `BED_MESH_CALIBRATE`. This will allow you to mesh without using the native adaptive meshing feature.
+If you prefer to continue using your KAMP adaptive meshing macros, or if you prefer not to use adaptive meshing at all, you can simply replace the `BED_MESH_CALIBRATE ADAPTIVE=1` line in the macros with `BED_MESH_CALIBRATE`.
+This will allow you to mesh without using the native adaptive meshing feature.
