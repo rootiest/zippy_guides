@@ -502,7 +502,7 @@ enable_object_processing: True
 
 Additionally, if you use a Slic3r variant, you will need to enable "Label Objects" in the slicer settings. Directions for that can be found in the relevant slicer section above for those slicers that require it.
 
-Further, the "I have a probe" and "Voron TAP" macros above have been updated to utilize this feature. No further software or macros are required to use this feature.
+Further, the "I have a probe" and "Voron TAP" macros above have been updated to utilize this feature. No further software or macros than what is shown here are required to use this feature.
 
 If you currently have adaptive meshing enabled in your KAMP macros, you will need to comment out or remove the `[include ./KAMP/Adaptive_Meshing.cfg]` line from your `KAMP_Settings.cfg` file in order to use the built-in feature. The other KAMP macros will still work as expected, and there is no built-in adaptive purging feature at this time.
 
